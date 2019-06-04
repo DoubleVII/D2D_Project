@@ -18,6 +18,7 @@ public:
 	void Stop();                // 在暂停的时候调用
 	void Tick();                // 在每一帧的时候调用
 
+
 private:
 	double m_SecondsPerCount;
 	double m_DeltaTime;
