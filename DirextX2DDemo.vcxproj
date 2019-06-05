@@ -129,6 +129,7 @@
     <ClInclude Include="D2DApp.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="GameCircle.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
@@ -141,6 +142,7 @@
     </ClCompile>
     <ClCompile Include="D2DApp.cpp" />
     <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="GameCircle.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />

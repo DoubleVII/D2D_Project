@@ -55,4 +55,6 @@ protected:
 	FLOAT angle;
 	BOOL rotate;
 	ComPtr <ID2D1Brush> brush;
+
+	virtual void drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget);
 };

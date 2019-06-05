@@ -1,17 +1,19 @@
 #include "GameApp.h"
 
+
 using namespace DirectX;
 
 
 GameApp::GameApp(HINSTANCE hInstance)
 	: D2DApp(hInstance),
-	rect(nullptr)
+	graphics(),
+	temRect(nullptr)
 {
 }
 
 GameApp::~GameApp()
 {
-	delete rect;
+	delete temRect;
 }
 
 bool GameApp::Init()
@@ -26,7 +28,13 @@ bool GameApp::Init()
 	m_pMouse->SetWindow(m_hMainWnd);
 	m_pMouse->SetMode(DirectX::Mouse::MODE_ABSOLUTE);
 
-	rect = new GameRectangle(m_pLightSlateGrayBrush, 100.f, 100.f, 50.f, 80.f);
+	//例子
+	temRect = new GameRectangle(m_pLightSlateGrayBrush, 100.f, 100.f, 50.f, 80.f, 30.f);
+	temRect2 = new StrockRectangle(m_pCornflowerBlueBrush, 400.f, 300.f, 70.f, 30.f, 5.0f);
+	temCircle = new GameCircle(m_pCornflowerBlueBrush, 600.f, 400.f, 40.f);
+	addGraphic(temRect);
+	addGraphic(temRect2);
+	addGraphic(temCircle);
 	return true;
 }
 
@@ -54,6 +62,9 @@ void GameApp::UpdateScene(float dt)
 	if (mouseState.leftButton == true && m_MouseTracker.leftButton == m_MouseTracker.HELD) {
 
 	}
+
+	
+	GameRectangle* rect = dynamic_cast<GameRectangle*>(graphics.front());
 
 	//例子
 	//键盘按下
@@ -108,12 +119,14 @@ void GameApp::DrawScene()
 		);
 	}
 
-	if (x < 400) {
-		++x;
-		++y;
+	auto iter = graphics.begin();
+	while (iter != graphics.end())
+	{
+		(*iter)->draw(m_pRenderTarget);
+		++iter;
 	}
-
-	rect->draw(m_pRenderTarget);
+	
+	
 
 	// Draw two rectangles.
 	//D2D1_RECT_F rectangle1 = D2D1::RectF(
@@ -143,6 +156,16 @@ void GameApp::DrawScene()
 		hr = S_OK;
 		DiscardDeviceResources();
 	}
+}
+
+void GameApp::addGraphic(Drawable* g)
+{
+	graphics.push_back(g);
+}
+
+void GameApp::removeGraphic(Drawable* g)
+{
+	graphics.remove(g);
 }
 
 

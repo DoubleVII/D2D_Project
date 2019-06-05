@@ -51,6 +51,9 @@
     <ClInclude Include="StrockRectangle.h">
       <Filter>头文件\graphic</Filter>
     </ClInclude>
+    <ClInclude Include="GameCircle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dApp.cpp">
@@ -78,6 +81,9 @@
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="StrockRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCircle.cpp">
       <Filter>源文件\graphic</Filter>
     </ClCompile>
   </ItemGroup>

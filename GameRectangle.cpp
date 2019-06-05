@@ -47,24 +47,23 @@ void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 		m_pRenderTarget->SetTransform(
 			D2D1::Matrix3x2F::Rotation(angle, center)
 		);
-		m_pRenderTarget->FillRectangle(D2D1::RectF(
-			x - width / 2,
-			y - height / 2,
-			x + width / 2,
-			y + height / 2),
-			brush.Get());
+		drawStyle(m_pRenderTarget);
 		m_pRenderTarget->SetTransform(
 			D2D1::Matrix3x2F::Rotation(0.f, center)
 		);
 	}
 	else {
-		m_pRenderTarget->FillRectangle(D2D1::RectF(
-			x - width / 2,
-			y - height / 2,
-			x + width / 2,
-			y + height / 2),
-			brush.Get());
+		drawStyle(m_pRenderTarget);
 	}
 	
 
+}
+
+void GameRectangle::drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget) {
+	m_pRenderTarget->FillRectangle(D2D1::RectF(
+		x - width / 2,
+		y - height / 2,
+		x + width / 2,
+		y + height / 2),
+		brush.Get());
 }
