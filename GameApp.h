@@ -8,6 +8,7 @@
 #include "GameRectangle.h"
 #include "StrockRectangle.h"
 #include "GameCircle.h"
+#include "BitmapRectangle.h"
 
 class GameApp : public D2DApp
 {
@@ -32,7 +33,9 @@ private:
 	GameRectangle* temRect;
 	StrockRectangle* temRect2;
 	GameCircle* temCircle;
+	BitmapRectangle* temRect3;
 
+	ComPtr<ID2D1Bitmap> temBitmap;
 };
 
 

@@ -40,7 +40,6 @@ GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT width, FLOAT height
 void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 {
 	assert(m_pRenderTarget);
-	assert(brush);
 
 	if (rotate) {
 		D2D1_POINT_2F center = D2D1::Point2F(x, y);
@@ -60,6 +59,7 @@ void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 }
 
 void GameRectangle::drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget) {
+	assert(brush);
 	m_pRenderTarget->FillRectangle(D2D1::RectF(
 		x - width / 2,
 		y - height / 2,

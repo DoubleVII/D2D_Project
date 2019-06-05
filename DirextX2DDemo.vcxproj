@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BItmapRectangle.h" />
     <ClInclude Include="d3dApp.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -134,9 +135,11 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="GameRectangle.h" />
+    <ClInclude Include="resources.h" />
     <ClInclude Include="StrockRectangle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BItmapRectangle.cpp" />
     <ClCompile Include="d3dApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -149,6 +152,9 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="GameRectangle.cpp" />
     <ClCompile Include="StrockRectangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="head.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

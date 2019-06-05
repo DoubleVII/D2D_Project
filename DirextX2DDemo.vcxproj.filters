@@ -54,6 +54,12 @@
     <ClInclude Include="GameCircle.h">
       <Filter>头文件\graphic</Filter>
     </ClInclude>
+    <ClInclude Include="resources.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BItmapRectangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dApp.cpp">
@@ -86,5 +92,13 @@
     <ClCompile Include="GameCircle.cpp">
       <Filter>源文件\graphic</Filter>
     </ClCompile>
+    <ClCompile Include="BItmapRectangle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="head.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

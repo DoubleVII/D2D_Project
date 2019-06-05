@@ -7,13 +7,21 @@ using namespace DirectX;
 GameApp::GameApp(HINSTANCE hInstance)
 	: D2DApp(hInstance),
 	graphics(),
-	temRect(nullptr)
+	temRect(nullptr),
+	temRect2(nullptr),
+	temCircle(nullptr),
+	temRect3(nullptr),
+	temBitmap(nullptr)
 {
 }
 
 GameApp::~GameApp()
 {
 	delete temRect;
+	delete temRect2;
+	delete temRect3;
+	delete temCircle;
+	temBitmap.Reset();
 }
 
 bool GameApp::Init()
@@ -29,12 +37,18 @@ bool GameApp::Init()
 	m_pMouse->SetMode(DirectX::Mouse::MODE_ABSOLUTE);
 
 	//例子
+
+	LoadBitmapFromFile(L"head.jpg", 0, 0, temBitmap.GetAddressOf());
 	temRect = new GameRectangle(m_pLightSlateGrayBrush, 100.f, 100.f, 50.f, 80.f, 30.f);
 	temRect2 = new StrockRectangle(m_pCornflowerBlueBrush, 400.f, 300.f, 70.f, 30.f, 5.0f);
-	temCircle = new GameCircle(m_pCornflowerBlueBrush, 600.f, 400.f, 40.f);
+	temCircle = new GameCircle(m_pCornflowerBlueBrush,600.f, 400.f, 40.f);
+	
+	temRect3 = new BitmapRectangle(temBitmap.Get(), ((temBitmap)->GetSize()).width, ((temBitmap)->GetSize()).height);
+	addGraphic(temRect3);
 	addGraphic(temRect);
 	addGraphic(temRect2);
 	addGraphic(temCircle);
+	
 	return true;
 }
 
@@ -63,8 +77,9 @@ void GameApp::UpdateScene(float dt)
 
 	}
 
-	
-	GameRectangle* rect = dynamic_cast<GameRectangle*>(graphics.front());
+	auto iter = graphics.begin();
+	++iter;
+	GameRectangle* rect = dynamic_cast<GameRectangle*>(*iter);
 
 	//例子
 	//键盘按下

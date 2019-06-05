@@ -34,6 +34,7 @@ StrockRectangle::~StrockRectangle()
 
 void StrockRectangle::drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 {
+	assert(brush);
 	m_pRenderTarget->DrawRectangle(D2D1::RectF(
 		x - width / 2,
 		y - height / 2,

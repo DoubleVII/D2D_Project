@@ -24,10 +24,39 @@
 
 // 添加所有要引用的库
 #pragma comment(lib, "d2d1.lib")
-
+#pragma comment(lib, "Windowscodecs.lib")
 
 #pragma once
 
+
+template<class Interface>
+inline void SafeRelease(
+	Interface** ppInterfaceToRelease
+)
+{
+	if (*ppInterfaceToRelease != NULL)
+	{
+		(*ppInterfaceToRelease)->Release();
+
+		(*ppInterfaceToRelease) = NULL;
+	}
+}
+
+
+#ifndef Assert
+#if defined( DEBUG ) || defined( _DEBUG )
+#define Assert(b) do {if (!(b)) {OutputDebugStringA("Assert: " #b "\n");}} while(0)
+#else
+#define Assert(b)
+#endif //DEBUG || _DEBUG
+#endif
+
+
+
+#ifndef HINST_THISCOMPONENT
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
+#endif
 
 class D2DApp
 {
@@ -80,6 +109,18 @@ protected:
 	// Release device-dependent resource.
 	void DiscardDeviceResources();
 
+	HRESULT LoadResourceBitmap(
+		PCWSTR resourceName,
+		PCWSTR resourceType,
+		UINT destinationWidth,
+		UINT destinationHeight,
+		ID2D1Bitmap** ppBitmap);
+
+	HRESULT LoadBitmapFromFile(
+		LPCWSTR uri,
+		UINT width,
+		UINT height,
+		ID2D1Bitmap** ppBitmap);
 
 protected:
 	template <class T>
@@ -88,6 +129,7 @@ protected:
 	ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget;
 	ComPtr<ID2D1SolidColorBrush> m_pLightSlateGrayBrush;
 	ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
+	ComPtr<IWICImagingFactory> m_pImageFactory;
 
 	// 键鼠输入
 	std::unique_ptr<DirectX::Mouse> m_pMouse;						// 鼠标
