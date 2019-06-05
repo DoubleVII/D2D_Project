@@ -1,7 +1,7 @@
 # D2D_Project
 A 2D Game based on Direct 2D and code partly with assembly lang.
 
-You can also access the [Readme file]() wrote in Chinese.(您也可以访问用中文写的Readme文件)
+You can also access the [Readme file](https://github.com/DoubleVII/D2D_Project/blob/master/README_CN.md) wrote in Chinese.(您也可以访问用中文写的Readme文件)
 
 ## Introduce
 This is a game graphics framework made with Direct 2D. By calling some built-in interfaces, you can easily output graphics to the screen, including lines, circles, rectangles, bitmaps, and more.
