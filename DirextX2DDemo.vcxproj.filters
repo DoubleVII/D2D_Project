@@ -13,15 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="通用文件">
+      <UniqueIdentifier>{4a3736c9-9486-4ff9-b430-0073a46c4ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\graphic">
+      <UniqueIdentifier>{9ae58f6f-bcb0-4f22-9738-ff821c987ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\graphic">
+      <UniqueIdentifier>{68487f18-5d68-404c-b8fb-51e9ef0d60e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d3dApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="d3dUtil.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DXTrace.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GameApp.h">
@@ -33,12 +36,24 @@
     <ClInclude Include="D2DApp.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>通用文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>通用文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRectangle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="StrockRectangle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DXTrace.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameApp.cpp">
@@ -50,11 +65,20 @@
     <ClCompile Include="D2DApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Main1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>通用文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>通用文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="StrockRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

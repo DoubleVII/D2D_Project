@@ -2,6 +2,7 @@
 #define GAMEAPP_H
 
 #include "D2DApp.h"
+#include "GameRectangle.h"
 
 class GameApp : public D2DApp
 {
@@ -19,6 +20,8 @@ public:
 
 private:
 	bool InitResource();
+	GameRectangle *rect;
+
 
 };
 

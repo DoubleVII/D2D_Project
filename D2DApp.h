@@ -2,6 +2,7 @@
 #include <windows.h>
 
 // C RunTime Header Files:
+#include <assert.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
@@ -17,6 +18,9 @@
 #include <string>
 
 #include "GameTimer.h"
+
+#include "Mouse.h"
+#include "Keyboard.h"
 
 // 添加所有要引用的库
 #pragma comment(lib, "d2d1.lib")
@@ -84,6 +88,12 @@ protected:
 	ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget;
 	ComPtr<ID2D1SolidColorBrush> m_pLightSlateGrayBrush;
 	ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
+
+	// 键鼠输入
+	std::unique_ptr<DirectX::Mouse> m_pMouse;						// 鼠标
+	DirectX::Mouse::ButtonStateTracker m_MouseTracker;				// 鼠标状态追踪器
+	std::unique_ptr<DirectX::Keyboard> m_pKeyboard;					// 键盘
+	DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;		// 键盘状态追踪器
 
 	float x = 0, y = 0;
 

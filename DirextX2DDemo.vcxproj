@@ -126,24 +126,27 @@
     <ClInclude Include="d3dApp.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="D2DApp.h" />
-    <ClInclude Include="DXTrace.h" />
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="GameRectangle.h" />
+    <ClInclude Include="StrockRectangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d3dApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="D2DApp.cpp" />
-    <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Main1.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="GameRectangle.cpp" />
+    <ClCompile Include="StrockRectangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
