@@ -51,9 +51,6 @@
     <ClInclude Include="src\GirdBackground.h">
       <Filter>头文件\graphic</Filter>
     </ClInclude>
-    <ClInclude Include="src\StrockRectangle.h">
-      <Filter>头文件\graphic</Filter>
-    </ClInclude>
     <ClInclude Include="src\D2DApp.h">
       <Filter>头文件\D2DLib</Filter>
     </ClInclude>
@@ -78,6 +75,18 @@
     <ClInclude Include="src\Mouse.h">
       <Filter>通用文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\StrokeRoundedRectangle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StrokeRectangle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoundedRectangle.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLine.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BItmapRectangle.cpp">
@@ -90,9 +99,6 @@
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="src\GirdBackground.cpp">
-      <Filter>源文件\graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StrockRectangle.cpp">
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="src\D2DApp.cpp">
@@ -118,6 +124,18 @@
     </ClCompile>
     <ClCompile Include="src\Mouse.cpp">
       <Filter>通用文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StrokeRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StrokeRoundedRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoundedRectangle.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLine.cpp">
+      <Filter>源文件\graphic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

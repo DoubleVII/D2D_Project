@@ -41,4 +41,5 @@ void GirdBackground::draw(ID2D1HwndRenderTarget* m_pRenderTarget)
 			0.5f
 		);
 	}
+
 }

@@ -133,12 +133,15 @@
     <ClInclude Include="src\GameApp.h" />
     <ClInclude Include="src\GameCircle.h" />
     <ClInclude Include="src\GameController.h" />
+    <ClInclude Include="src\GameLine.h" />
     <ClInclude Include="src\GameRectangle.h" />
     <ClInclude Include="src\GameTimer.h" />
     <ClInclude Include="src\GirdBackground.h" />
     <ClInclude Include="src\Keyboard.h" />
     <ClInclude Include="src\Mouse.h" />
-    <ClInclude Include="src\StrockRectangle.h" />
+    <ClInclude Include="src\RoundedRectangle.h" />
+    <ClInclude Include="src\StrokeRectangle.h" />
+    <ClInclude Include="src\StrokeRoundedRectangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BItmapRectangle.cpp" />
@@ -149,13 +152,16 @@
     <ClCompile Include="src\GameApp.cpp" />
     <ClCompile Include="src\GameCircle.cpp" />
     <ClCompile Include="src\GameController.cpp" />
+    <ClCompile Include="src\GameLine.cpp" />
     <ClCompile Include="src\GameRectangle.cpp" />
     <ClCompile Include="src\GameTimer.cpp" />
     <ClCompile Include="src\GirdBackground.cpp" />
     <ClCompile Include="src\Keyboard.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
-    <ClCompile Include="src\StrockRectangle.cpp" />
+    <ClCompile Include="src\RoundedRectangle.cpp" />
+    <ClCompile Include="src\StrokeRectangle.cpp" />
+    <ClCompile Include="src\StrokeRoundedRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\category.png" />

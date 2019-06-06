@@ -3,20 +3,25 @@
 
 
 #include "GameRectangle.h"
-#include "StrockRectangle.h"
+#include "StrokeRectangle.h"
 #include "GameCircle.h"
 #include "BitmapRectangle.h"
 #include "GirdBackground.h"
+#include "RoundedRectangle.h"
+#include "StrokeRoundedRectangle.h"
+#include "GameLine.h"
 
 using namespace DirectX;
 
 
 GameRectangle* temRect;
-StrockRectangle* temRect2;
+StrokeRectangle* temRect2;
 GameCircle* temCircle;
 BitmapRectangle* temRect3;
 GirdBackground* background;
-
+RoundedRectangle* temRect4;
+StrokeRoundedRectangle* temRect5;
+GameLine* line;
 
 template <class T>
 using ComPtr = Microsoft::WRL::ComPtr<T>;
@@ -40,6 +45,9 @@ GameController::~GameController()
 	delete temRect2;
 	delete temRect3;
 	delete temCircle;
+	delete temRect4;
+	delete temRect5;
+	delete line;
 	temBitmap.Reset();
 	m_pLightSlateGrayBrush.Reset();
 	m_pCornflowerBlueBrush.Reset();
@@ -56,15 +64,23 @@ void GameController::GameInit()
 	//LoadBitmapFromFile(L"head.jpg", 0, 0, temBitmap.GetAddressOf());
 	background = new GirdBackground(m_pLightSlateGrayBrush.Get());
 	temRect = new GameRectangle(m_pLightSlateGrayBrush.Get(), 100.f, 100.f, 50.f, 80.f, 30.f);
-	temRect2 = new StrockRectangle(m_pCornflowerBlueBrush.Get(), 400.f, 300.f, 70.f, 30.f, 5.0f);
+	temRect2 = new StrokeRectangle(m_pCornflowerBlueBrush.Get(), 400.f, 300.f, 70.f, 30.f, 5.0f);
 	temCircle = new GameCircle(m_pCornflowerBlueBrush.Get(), 600.f, 400.f, 40.f);
+	temRect4 = new RoundedRectangle(m_pLightSlateGrayBrush.Get(), 300.f, 500.f, 120.f, 50.f, 10.f);
+	temRect5 = new StrokeRoundedRectangle(m_pLightSlateGrayBrush.Get(), 500.f, 500.f, 120.f, 50.f, 3.f, 10.f);
+	line = new GameLine(m_pCornflowerBlueBrush.Get(), 300.f, 300.f, 600.f, 900.f, 3.f);
 
 	temRect3 = new BitmapRectangle(temBitmap.Get(), ((temBitmap)->GetSize()).width, ((temBitmap)->GetSize()).height);
+	
+	
 	addGraphic(background);
 	addGraphic(temRect3);
 	addGraphic(temRect);
 	addGraphic(temRect2);
+	addGraphic(temRect4);
+	addGraphic(temRect5);
 	addGraphic(temCircle);
+	addGraphic(line);
 }
 
 void GameController::UpdateScene(float dt)
