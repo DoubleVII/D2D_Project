@@ -24,7 +24,7 @@ RoundedRectangle* temRect4;
 StrokeRoundedRectangle* temRect5;
 GameLine* line;
 GameText* gameText;
-std::wstring textStr = L"使用W,A,S,D移动";
+std::wstring textStr = L"Use W,A,S,D to move.";
 
 template <class T>
 using ComPtr = Microsoft::WRL::ComPtr<T>;
@@ -64,7 +64,7 @@ void GameController::GameInit()
 	LoadResourceBitmap(MAKEINTRESOURCE(IDB_PNG2), L"PNG", 0, 0, temBitmap.GetAddressOf());
 	CreateSolidColorBrush(m_pLightSlateGrayBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::LightSlateGray));
 	CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
-	CreateTextFormat(defaultTextFormat.GetAddressOf());
+	CreateTextFormat(defaultTextFormat.GetAddressOf(), 30.f, L"Microsoft YaHei");
 
 	//LoadBitmapFromFile(L"head.jpg", 0, 0, temBitmap.GetAddressOf());
 	background = new GirdBackground(m_pLightSlateGrayBrush.Get());
@@ -84,12 +84,12 @@ void GameController::GameInit()
 	
 	addGraphic(background);
 	addGraphic(gameText);
-	addGraphic(temRect3);
-	addGraphic(temRect);
-	addGraphic(temRect2);
-	addGraphic(temRect4);
-	addGraphic(temRect5);
-	addGraphic(temCircle);
+	//addGraphic(temRect3);
+	//addGraphic(temRect);
+	//addGraphic(temRect2);
+	//addGraphic(temRect4);
+	//addGraphic(temRect5);
+	//addGraphic(temCircle);
 	addGraphic(line);
 }
 
