@@ -5,6 +5,7 @@ A 2D Game based on Direct 2D and code partly with assembly lang.
 
 ## 开始
 ### 绘制一个矩形
+绘制部分的代码全部位于 "void GameController::GameInit()"
 
 首先创建一个笔刷
 ```cpp
