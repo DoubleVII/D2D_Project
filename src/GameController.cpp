@@ -1,6 +1,6 @@
-#include "GameController.h"
+ï»¿#include "GameController.h"
 #include "../resource.h"
-
+#include <string>
 
 #include "GameRectangle.h"
 #include "StrokeRectangle.h"
@@ -10,6 +10,7 @@
 #include "RoundedRectangle.h"
 #include "StrokeRoundedRectangle.h"
 #include "GameLine.h"
+#include "GameText.h"
 
 using namespace DirectX;
 
@@ -22,12 +23,15 @@ GirdBackground* background;
 RoundedRectangle* temRect4;
 StrokeRoundedRectangle* temRect5;
 GameLine* line;
+GameText* gameText;
+std::wstring textStr = L"ä½¿ç”¨W,A,S,Dç§»åŠ¨";
 
 template <class T>
 using ComPtr = Microsoft::WRL::ComPtr<T>;
 ComPtr<ID2D1Bitmap> temBitmap;
 ComPtr<ID2D1SolidColorBrush> m_pLightSlateGrayBrush;
 ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
+ComPtr<IDWriteTextFormat> defaultTextFormat;
 
 GameController::GameController(HINSTANCE hInstance)
 	: GameApp(hInstance)
@@ -51,15 +55,16 @@ GameController::~GameController()
 	temBitmap.Reset();
 	m_pLightSlateGrayBrush.Reset();
 	m_pCornflowerBlueBrush.Reset();
+	defaultTextFormat.Reset();
 }
 
 void GameController::GameInit()
 {
-	//Àý×Ó
-
+	//ä¾‹å­
 	LoadResourceBitmap(MAKEINTRESOURCE(IDB_PNG2), L"PNG", 0, 0, temBitmap.GetAddressOf());
 	CreateSolidColorBrush(m_pLightSlateGrayBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::LightSlateGray));
 	CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
+	CreateTextFormat(defaultTextFormat.GetAddressOf());
 
 	//LoadBitmapFromFile(L"head.jpg", 0, 0, temBitmap.GetAddressOf());
 	background = new GirdBackground(m_pLightSlateGrayBrush.Get());
@@ -70,10 +75,15 @@ void GameController::GameInit()
 	temRect5 = new StrokeRoundedRectangle(m_pLightSlateGrayBrush.Get(), 500.f, 500.f, 120.f, 50.f, 3.f, 10.f);
 	line = new GameLine(m_pCornflowerBlueBrush.Get(), 300.f, 300.f, 600.f, 900.f, 3.f);
 
+	
+
+
+	gameText = new GameText(m_pCornflowerBlueBrush.Get(), defaultTextFormat.Get(), textStr.c_str(), textStr.size(), 0, 0, 1200, 100);
+
 	temRect3 = new BitmapRectangle(temBitmap.Get(), ((temBitmap)->GetSize()).width, ((temBitmap)->GetSize()).height);
 	
-	
 	addGraphic(background);
+	addGraphic(gameText);
 	addGraphic(temRect3);
 	addGraphic(temRect);
 	addGraphic(temRect2);
@@ -85,25 +95,25 @@ void GameController::GameInit()
 
 void GameController::UpdateScene(float dt)
 {
-	// »ñÈ¡Êó±ê×´Ì¬
+	// èŽ·å–é¼ æ ‡çŠ¶æ€
 	Mouse::State mouseState = m_pMouse->GetState();
 	Mouse::State lastMouseState = m_MouseTracker.GetLastState();
-	// »ñÈ¡¼üÅÌ×´Ì¬
+	// èŽ·å–é”®ç›˜çŠ¶æ€
 	Keyboard::State keyState = m_pKeyboard->GetState();
 	Keyboard::State lastKeyState = m_KeyboardTracker.GetLastState();
 
-	// ¸üÐÂÊó±ê°´Å¥×´Ì¬¸ú×ÙÆ÷
+	// æ›´æ–°é¼ æ ‡æŒ‰é’®çŠ¶æ€è·Ÿè¸ªå™¨
 	m_MouseTracker.Update(mouseState);
 	m_KeyboardTracker.Update(keyState);
 
-	//Àý×Ó
-	//Êó±êÍÏ¶¯
+	//ä¾‹å­
+	//é¼ æ ‡æ‹–åŠ¨
 	if (mouseState.leftButton == true && m_MouseTracker.leftButton == m_MouseTracker.HELD) {
 
 	}
 
-	//Àý×Ó
-	//¼üÅÌ°´ÏÂ
+	//ä¾‹å­
+	//é”®ç›˜æŒ‰ä¸‹
 	if (keyState.IsKeyDown(Keyboard::W))
 		temRect3->setY(temRect3->getY() - 100.f * dt);
 	if (keyState.IsKeyDown(Keyboard::S))

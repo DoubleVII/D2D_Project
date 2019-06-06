@@ -87,6 +87,9 @@
     <ClInclude Include="src\GameLine.h">
       <Filter>头文件\graphic</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameText.h">
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BItmapRectangle.cpp">
@@ -135,6 +138,9 @@
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLine.cpp">
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameText.cpp">
       <Filter>源文件\graphic</Filter>
     </ClCompile>
   </ItemGroup>

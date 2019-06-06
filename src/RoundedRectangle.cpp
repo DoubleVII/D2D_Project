@@ -1,4 +1,4 @@
-#include "RoundedRectangle.h"
+﻿#include "RoundedRectangle.h"
 
 RoundedRectangle::RoundedRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT radius, FLOAT angle) :
 	GameRectangle(brush, x, y, width, height, angle), radius(radius)

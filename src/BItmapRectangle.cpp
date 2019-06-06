@@ -1,4 +1,4 @@
-#include "BItmapRectangle.h"
+﻿#include "BItmapRectangle.h"
 
 
 

@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include "D2DApp.h"
 #include <sstream>
@@ -221,6 +221,13 @@ HRESULT D2DApp::CreateDeviceResources()
 				(LPVOID*)m_pImageFactory.GetAddressOf()
 			);
 		}
+		if (SUCCEEDED(hr)) {
+			hr = DWriteCreateFactory(
+				DWRITE_FACTORY_TYPE_SHARED,
+				__uuidof(IDWriteFactory),
+				reinterpret_cast<IUnknown **>(m_pDWriteFactory.GetAddressOf())
+			);
+		}
 	}
 
 	return hr;
@@ -236,7 +243,7 @@ HRESULT D2DApp::CreateSolidColorBrush(ID2D1SolidColorBrush** brush, D2D1::ColorF
 
 
 //-----------------------------------------------------------------
-// ´Ó×ÊÔ´ÎÄ¼ş¼ÓÔØD2DÎ»Í¼
+// ä»èµ„æºæ–‡ä»¶åŠ è½½D2Dä½å›¾
 //-----------------------------------------------------------------
 HRESULT D2DApp::LoadBitmapFromFile(
 	LPCWSTR uri,
@@ -250,7 +257,7 @@ HRESULT D2DApp::LoadBitmapFromFile(
 	IWICFormatConverter* pConverter = NULL;
 	IWICBitmapScaler* pScaler = NULL;
 
-	// ¼ÓÔØÎ»Í¼-------------------------------------------------
+	// åŠ è½½ä½å›¾-------------------------------------------------
 	HRESULT hr = m_pImageFactory->CreateDecoderFromFilename(
 		uri,
 		NULL,
@@ -338,6 +345,60 @@ HRESULT D2DApp::LoadBitmapFromFile(
 	SafeRelease(&pStream);
 	SafeRelease(&pConverter);
 	SafeRelease(&pScaler);
+
+	return hr;
+}
+
+
+// Create resources which are not bound
+// to any device. Their lifetime effectively extends for the
+// duration of the app. These resources include the Direct2D and
+// DirectWrite factories,  and a DirectWrite Text Format object
+// (used for identifying particular font characteristics).
+//
+HRESULT D2DApp::CreateTextFormat(IDWriteTextFormat** textFormat)
+{
+	return CreateTextFormat(textFormat, 30.F, L"Microsoft YaHei", DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+}
+
+HRESULT D2DApp::CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize)
+{
+	return CreateTextFormat(textFormat, fontSize, L"Microsoft YaHei", DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+}
+
+HRESULT D2DApp::CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize, const WCHAR* fontFamily)
+{
+	return CreateTextFormat(textFormat, fontSize, fontFamily, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+}
+
+HRESULT D2DApp::CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize , const WCHAR* fontFamily, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_ALIGNMENT textAlignment, DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment)
+{
+	HRESULT hr = S_OK;
+
+	// Create a DirectWrite factory.
+
+
+	if (SUCCEEDED(hr))
+	{
+		// Create a DirectWrite text format object.
+		hr = m_pDWriteFactory->CreateTextFormat(
+			fontFamily,
+			nullptr,
+			DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			fontSize,
+			L"zh-cn", //locale
+			textFormat
+		);
+	}
+	if (SUCCEEDED(hr))
+	{
+		// Center the text horizontally and vertically.
+		(*textFormat)->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+
+		(*textFormat)->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+	}
 
 	return hr;
 }
@@ -572,7 +633,7 @@ LRESULT D2DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		((MINMAXINFO*)lParam)->ptMinTrackSize.y = 200;
 		return 0;
 
-		// ¼à²âÕâĞ©¼üÅÌ/Êó±êÊÂ¼ş
+		// ç›‘æµ‹è¿™äº›é”®ç›˜/é¼ æ ‡äº‹ä»¶
 	case WM_INPUT:
 
 	case WM_LBUTTONDOWN:
@@ -686,7 +747,7 @@ LRESULT D2DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void D2DApp::CalculateFrameStats()
 {
-	// ¸Ã´úÂë¼ÆËãÃ¿ÃëÖ¡ËÙ£¬²¢¼ÆËãÃ¿Ò»Ö¡äÖÈ¾ĞèÒªµÄÊ±¼ä£¬ÏÔÊ¾ÔÚ´°¿Ú±êÌâ
+	// è¯¥ä»£ç è®¡ç®—æ¯ç§’å¸§é€Ÿï¼Œå¹¶è®¡ç®—æ¯ä¸€å¸§æ¸²æŸ“éœ€è¦çš„æ—¶é—´ï¼Œæ˜¾ç¤ºåœ¨çª—å£æ ‡é¢˜
 	static int frameCnt = 0;
 	static float timeElapsed = 0.0f;
 

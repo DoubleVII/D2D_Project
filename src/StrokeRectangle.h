@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameRectangle.h"
 class StrokeRectangle :
 	public GameRectangle

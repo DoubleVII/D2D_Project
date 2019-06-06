@@ -1,4 +1,4 @@
-#ifndef GAMEAPP_H
+﻿#ifndef GAMEAPP_H
 #define GAMEAPP_H
 
 #include "D2DApp.h"

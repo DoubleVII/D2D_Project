@@ -1,4 +1,4 @@
-#include "GameCircle.h"
+﻿#include "GameCircle.h"
 
 GameCircle::GameCircle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT radius)
 	:brush(brush),

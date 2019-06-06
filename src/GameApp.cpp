@@ -1,4 +1,4 @@
-#include "GameApp.h"
+ï»¿#include "GameApp.h"
 
 
 GameApp::GameApp(HINSTANCE hInstance)
@@ -25,7 +25,7 @@ bool GameApp::Init()
 	if (!InitResource())
 		return false;
 
-	// ³õÊ¼»¯Êó±ê£¬¼üÅÌ²»ÐèÒª
+	// åˆå§‹åŒ–é¼ æ ‡ï¼Œé”®ç›˜ä¸éœ€è¦
 	m_pMouse->SetWindow(m_hMainWnd);
 	m_pMouse->SetMode(DirectX::Mouse::MODE_ABSOLUTE);
 

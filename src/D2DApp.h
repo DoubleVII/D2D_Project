@@ -1,4 +1,4 @@
-// Windows Header Files:
+ï»¿// Windows Header Files:
 #include <windows.h>
 
 // C RunTime Header Files:
@@ -22,8 +22,9 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 
-// Ìí¼ÓËùÓĞÒªÒıÓÃµÄ¿â
+// æ·»åŠ æ‰€æœ‰è¦å¼•ç”¨çš„åº“
 #pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
 #pragma comment(lib, "Windowscodecs.lib")
 
 #pragma once
@@ -68,37 +69,37 @@ public:
 	// Process and dispatch messages
 	//@deprecated void RunMessageLoop();
 
-	HINSTANCE AppInst()const;       // »ñÈ¡Ó¦ÓÃÊµÀıµÄ¾ä±ú
-	HWND      MainWnd()const;       // »ñÈ¡Ö÷´°¿Ú¾ä±ú
-	float     AspectRatio()const;   // »ñÈ¡ÆÁÄ»¿í¸ß±È
+	HINSTANCE AppInst()const;       // è·å–åº”ç”¨å®ä¾‹çš„å¥æŸ„
+	HWND      MainWnd()const;       // è·å–ä¸»çª—å£å¥æŸ„
+	float     AspectRatio()const;   // è·å–å±å¹•å®½é«˜æ¯”
 
-	int Run();                      // ÔËĞĞ³ÌĞò£¬½øĞĞÓÎÏ·Ö÷Ñ­»·
+	int Run();                      // è¿è¡Œç¨‹åºï¼Œè¿›è¡Œæ¸¸æˆä¸»å¾ªç¯
 
-	// ¿ò¼Ü·½·¨¡£¿Í»§ÅÉÉúÀàĞèÒªÖØÔØÕâĞ©·½·¨ÒÔÊµÏÖÌØ¶¨µÄÓ¦ÓÃĞèÇó
-	virtual bool Init();                      // ¸Ã¸¸Àà·½·¨ĞèÒª³õÊ¼»¯´°¿ÚºÍDirect3D²¿·Ö
-	virtual void OnResize();                  // ¸Ã¸¸Àà·½·¨ĞèÒªÔÚ´°¿Ú´óĞ¡±ä¶¯µÄÊ±ºòµ÷ÓÃ
-	virtual void UpdateScene(float dt) = 0;   // ×ÓÀàĞèÒªÊµÏÖ¸Ã·½·¨£¬Íê³ÉÃ¿Ò»Ö¡µÄ¸üĞÂ
-	virtual void DrawScene() = 0;             // ×ÓÀàĞèÒªÊµÏÖ¸Ã·½·¨£¬Íê³ÉÃ¿Ò»Ö¡µÄ»æÖÆ
+	// æ¡†æ¶æ–¹æ³•ã€‚å®¢æˆ·æ´¾ç”Ÿç±»éœ€è¦é‡è½½è¿™äº›æ–¹æ³•ä»¥å®ç°ç‰¹å®šçš„åº”ç”¨éœ€æ±‚
+	virtual bool Init();                      // è¯¥çˆ¶ç±»æ–¹æ³•éœ€è¦åˆå§‹åŒ–çª—å£å’ŒDirect3Déƒ¨åˆ†
+	virtual void OnResize();                  // è¯¥çˆ¶ç±»æ–¹æ³•éœ€è¦åœ¨çª—å£å¤§å°å˜åŠ¨çš„æ—¶å€™è°ƒç”¨
+	virtual void UpdateScene(float dt) = 0;   // å­ç±»éœ€è¦å®ç°è¯¥æ–¹æ³•ï¼Œå®Œæˆæ¯ä¸€å¸§çš„æ›´æ–°
+	virtual void DrawScene() = 0;             // å­ç±»éœ€è¦å®ç°è¯¥æ–¹æ³•ï¼Œå®Œæˆæ¯ä¸€å¸§çš„ç»˜åˆ¶
 	virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 protected:
-	bool InitMainWindow();       // ´°¿Ú³õÊ¼»¯
-	bool InitDirect2D();         // Direct3D³õÊ¼»¯
+	bool InitMainWindow();       // çª—å£åˆå§‹åŒ–
+	bool InitDirect2D();         // Direct3Dåˆå§‹åŒ–
 
-	void CalculateFrameStats();  // ¼ÆËãÃ¿ÃëÖ¡Êı²¢ÔÚ´°¿ÚÏÔÊ¾
+	void CalculateFrameStats();  // è®¡ç®—æ¯ç§’å¸§æ•°å¹¶åœ¨çª—å£æ˜¾ç¤º
 
 protected:
 
-	HINSTANCE m_hAppInst;        // Ó¦ÓÃÊµÀı¾ä±ú
-	HWND      m_hMainWnd;        // Ö÷´°¿Ú¾ä±ú
-	bool      m_AppPaused;       // Ó¦ÓÃÊÇ·ñÔİÍ£
-	bool      m_Minimized;       // Ó¦ÓÃÊÇ·ñ×îĞ¡»¯
-	bool      m_Maximized;       // Ó¦ÓÃÊÇ·ñ×î´ó»¯
-	bool      m_Resizing;        // ´°¿Ú´óĞ¡ÊÇ·ñ±ä»¯
+	HINSTANCE m_hAppInst;        // åº”ç”¨å®ä¾‹å¥æŸ„
+	HWND      m_hMainWnd;        // ä¸»çª—å£å¥æŸ„
+	bool      m_AppPaused;       // åº”ç”¨æ˜¯å¦æš‚åœ
+	bool      m_Minimized;       // åº”ç”¨æ˜¯å¦æœ€å°åŒ–
+	bool      m_Maximized;       // åº”ç”¨æ˜¯å¦æœ€å¤§åŒ–
+	bool      m_Resizing;        // çª—å£å¤§å°æ˜¯å¦å˜åŒ–
 
 
-	GameTimer m_Timer;           // ¼ÆÊ±Æ÷
+	GameTimer m_Timer;           // è®¡æ—¶å™¨
 
 protected:
 	// Initialize device-independent resources.
@@ -123,24 +124,30 @@ protected:
 		UINT height,
 		ID2D1Bitmap** ppBitmap);
 
+	HRESULT CreateTextFormat(IDWriteTextFormat** textFormat);
+	HRESULT CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize);
+	HRESULT CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize, const WCHAR* fontFamily);
+	HRESULT CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize, const WCHAR* fontFamily, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_ALIGNMENT textAlignment, DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+
 protected:
 	template <class T>
 	using ComPtr = Microsoft::WRL::ComPtr<T>;
 	ComPtr<ID2D1Factory> m_pDirect2dFactory;
 	ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget;
 	ComPtr<IWICImagingFactory> m_pImageFactory;
+	ComPtr<IDWriteFactory> m_pDWriteFactory;
 
-	// ¼üÊóÊäÈë
-	std::unique_ptr<DirectX::Mouse> m_pMouse;						// Êó±ê
-	DirectX::Mouse::ButtonStateTracker m_MouseTracker;				// Êó±ê×´Ì¬×·×ÙÆ÷
-	std::unique_ptr<DirectX::Keyboard> m_pKeyboard;					// ¼üÅÌ
-	DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;		// ¼üÅÌ×´Ì¬×·×ÙÆ÷
+	// é”®é¼ è¾“å…¥
+	std::unique_ptr<DirectX::Mouse> m_pMouse;						// é¼ æ ‡
+	DirectX::Mouse::ButtonStateTracker m_MouseTracker;				// é¼ æ ‡çŠ¶æ€è¿½è¸ªå™¨
+	std::unique_ptr<DirectX::Keyboard> m_pKeyboard;					// é”®ç›˜
+	DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;		// é”®ç›˜çŠ¶æ€è¿½è¸ªå™¨
 
 	float x = 0, y = 0;
 
-	// ÅÉÉúÀàÓ¦¸ÃÔÚ¹¹Ôìº¯ÊıÉèÖÃºÃÕâĞ©×Ô¶¨ÒåµÄ³õÊ¼²ÎÊı
-	std::wstring m_MainWndCaption;                        // Ö÷´°¿Ú±êÌâ
-	int m_ClientWidth;                                    // ÊÓ¿Ú¿í¶È
-	int m_ClientHeight;                                   // ÊÓ¿Ú¸ß¶È
+	// æ´¾ç”Ÿç±»åº”è¯¥åœ¨æ„é€ å‡½æ•°è®¾ç½®å¥½è¿™äº›è‡ªå®šä¹‰çš„åˆå§‹å‚æ•°
+	std::wstring m_MainWndCaption;                        // ä¸»çª—å£æ ‡é¢˜
+	int m_ClientWidth;                                    // è§†å£å®½åº¦
+	int m_ClientHeight;                                   // è§†å£é«˜åº¦
 
 };
