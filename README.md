@@ -8,8 +8,60 @@ This is a game graphics framework made with Direct 2D. By calling some built-in 
 
 ## Start Up
 ### Draw a rectangle
+
+First create a brush
+```cpp
+ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
+CreateSolidColorBrush(m_pLightSlateGrayBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::LightSlateGray));
+```
+Then use the brush to create a rectangle
+```cpp
+//x=100, y=100, width=50, height=80, angle = 30
+GameRectangle* Rect = new GameRectangle(m_pLightSlateGrayBrush.Get(), 100.f, 100.f, 50.f, 80.f, 30.f);
+```
+Add a rectangle to the graphics queue
+```cpp
+addGraphic(Rect);
+```
+result
+
+![Drawn rectangle](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRectangle.PNG)
+
 ### Draw a Circle
+
+Create a circle with a brush
+```cpp
+//x=600, y=400, radius=40
+GameCircle* Circle = new GameCircle(m_pCornflowerBlueBrush.Get(), 600.f, 400.f, 40.f);
+```
+Add a circle to the graphics queue
+```cpp
+addGraphic(Circle);
+```
+result
+
+![Drawn circle](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawCircle.PNG)
+
+
 ### Draw a Bitmap
+
+Load a bitmap from resources
+```cpp
+ComPtr<ID2D1Bitmap> Bitmap;
+LoadResourceBitmap(MAKEINTRESOURCE(IDB_PNG2), L"PNG", 0, 0, Bitmap.GetAddressOf());
+```
+Create a bitmap rectangle using a bitmap
+```cpp
+BitmapRect = new BitmapRectangle(temBitmap.Get(), ((Bitmap)->GetSize()).width, ((Bitmap)->GetSize()).height);
+```
+Add a bitmap rectangle to the graphics queue
+```cpp
+addGraphic(BitmapRect);
+```
+result
+
+![Drawn bitmap](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawBitmap.PNG)
+
 
 ## Architecture
 ### Windows Program
