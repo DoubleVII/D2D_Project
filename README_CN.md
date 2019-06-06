@@ -57,6 +57,7 @@ StrokeRectangle* Rect = new StrokeRoundedRectangle(m_pLightSlateGrayBrush.Get(),
 ```
 
 效果
+
 ![绘制的描边圆角矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRoundedStrokeRectangle.PNG)
 
 ### 绘制圆
@@ -191,6 +192,26 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 		rect3->setX(temRect3->getX() + 100.f * dt);
 ```
 
+## 编程
+为了编写您的游戏，您只需要关注GameControll和框架自带的图形类即可（或者您可以自己实现图形类）。
+
+在GameController类中，有两个方法需要特别关注，`void GameController::GameInit()
+`和`void GameController::UpdateScene(float dt)`。
+
+简单来讲，您需要在GameInit中初始化您的游戏，在UpdateScene中完成所有的数据更新，同时您的游戏主要逻辑也在UpdateScene中执行。
+### GameControll的接口
+#### void addGraphic(Drawable* g)
+向图形队列尾部添加一个图形。图形队列中的所有图形会被绘制在屏幕上。
+
+需要注意的是，添加图形的顺序对最终的绘制效果有影响，即最先添加到图形队列中的图形会位于画面最底层。因此我们推荐您将背景放在图形队列的第一个位置，否则它会挡住所有在它前面添加的图形。
+
+#### void addGraphicToFront(Drawable* g)
+向图形队列头部添加一个图形。
+
+#### void removeGraphic(Drawable* g)
+从图形队列中移除一个图形，被移除的图形将不再被绘制。
+
+另外，如果需要更加精细的插入或删除操作，您可以直接使用保存图形队列的变量`std::list<Drawable*> graphics`。
 
 ## 架构
 ### Windows编程
