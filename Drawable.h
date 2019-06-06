@@ -4,13 +4,9 @@
 
 class Drawable
 {
-protected:
-	template <class T>
-	using ComPtr = Microsoft::WRL::ComPtr<T>;
-
 public:
 	Drawable() {};
 
-	virtual void draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget) = 0;
+	virtual void draw(ID2D1HwndRenderTarget* m_pRenderTarget) = 0;
 
 };

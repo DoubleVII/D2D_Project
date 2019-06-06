@@ -1,4 +1,4 @@
-#include "GameApp.h"
+#include "GameController.h"
  
 
 
@@ -14,12 +14,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prevInstance,
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 #endif
 
-	GameApp theApp(hInstance);
+	GameController app(hInstance, 1200, 800);
 	
-	if( !theApp.Init() )
+	if( !app.Init() )
 		return 0;
 	
-	return theApp.Run();
+	return app.Run();
 }
 
 

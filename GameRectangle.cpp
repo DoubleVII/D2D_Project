@@ -3,7 +3,7 @@
 
 
 
-GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT angle)
+GameRectangle::GameRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT angle)
 	: brush(brush),
 	x(x),
 	y(y),
@@ -15,7 +15,7 @@ GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT w
 	
 }
 
-GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height)
+GameRectangle::GameRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height)
 	: brush(brush),
 	x(x),
 	y(y),
@@ -26,7 +26,7 @@ GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT w
 {
 }
 
-GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT width, FLOAT height)
+GameRectangle::GameRectangle(ID2D1Brush* brush, FLOAT width, FLOAT height)
 	: brush(brush),
 	x(width/2),
 	y(height/2),
@@ -37,7 +37,7 @@ GameRectangle::GameRectangle(ComPtr<ID2D1Brush> brush, FLOAT width, FLOAT height
 {
 }
 
-void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
+void GameRectangle::draw(ID2D1HwndRenderTarget* m_pRenderTarget)
 {
 	assert(m_pRenderTarget);
 
@@ -48,7 +48,7 @@ void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 		);
 		drawStyle(m_pRenderTarget);
 		m_pRenderTarget->SetTransform(
-			D2D1::Matrix3x2F::Rotation(0.f, center)
+			D2D1::Matrix3x2F::Identity()
 		);
 	}
 	else {
@@ -58,12 +58,12 @@ void GameRectangle::draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
 
 }
 
-void GameRectangle::drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget) {
+void GameRectangle::drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget) {
 	assert(brush);
 	m_pRenderTarget->FillRectangle(D2D1::RectF(
 		x - width / 2,
 		y - height / 2,
 		x + width / 2,
 		y + height / 2),
-		brush.Get());
+		brush);
 }

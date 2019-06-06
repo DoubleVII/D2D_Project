@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -130,12 +130,14 @@
     <ClInclude Include="D2DApp.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="GirdBackground.h" />
     <ClInclude Include="GameCircle.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="GameRectangle.h" />
-    <ClInclude Include="resources.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="StrockRectangle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +147,9 @@
     </ClCompile>
     <ClCompile Include="D2DApp.cpp" />
     <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="GirdBackground.cpp" />
     <ClCompile Include="GameCircle.cpp" />
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -154,7 +158,10 @@
     <ClCompile Include="StrockRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="head.jpg" />
+    <Image Include="resources\category.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirextX2DDemo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

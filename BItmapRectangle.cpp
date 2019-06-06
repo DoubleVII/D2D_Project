@@ -23,7 +23,7 @@ BitmapRectangle::~BitmapRectangle()
 {
 }
 
-void BitmapRectangle::drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget)
+void BitmapRectangle::drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget)
 {
 	m_pRenderTarget->DrawBitmap(pBitmap, D2D1::RectF(
 		x - width / 2,

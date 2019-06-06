@@ -4,13 +4,13 @@
 
 class GameRectangle :public Drawable {
 public:
-	GameRectangle(ComPtr <ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT angle);
+	GameRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT angle);
 
-	GameRectangle(ComPtr <ID2D1Brush> brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height);
+	GameRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, FLOAT height);
 
-	GameRectangle(ComPtr <ID2D1Brush> brush, FLOAT width, FLOAT height);
+	GameRectangle(ID2D1Brush* brush, FLOAT width, FLOAT height);
 
-	void draw(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget);
+	void draw(ID2D1HwndRenderTarget* m_pRenderTarget);
 
 	void setX(FLOAT x) {
 		this->x = x;
@@ -54,7 +54,7 @@ protected:
 	FLOAT width, height;
 	FLOAT angle;
 	BOOL rotate;
-	ComPtr <ID2D1Brush> brush;
+	ID2D1Brush* brush;
 
-	virtual void drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget);
+	virtual void drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget);
 };

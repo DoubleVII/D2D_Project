@@ -62,6 +62,7 @@ class D2DApp
 {
 public:
 	D2DApp(HINSTANCE hInstance);
+	D2DApp(HINSTANCE hInstance, int windowWidth, int windowHeight);
 	virtual ~D2DApp();
 
 	// Process and dispatch messages
@@ -106,8 +107,8 @@ protected:
 	// Initialize device-dependent resources.
 	HRESULT CreateDeviceResources();
 
-	// Release device-dependent resource.
-	void DiscardDeviceResources();
+
+	HRESULT CreateSolidColorBrush(ID2D1SolidColorBrush **brush, D2D1::ColorF color);
 
 	HRESULT LoadResourceBitmap(
 		PCWSTR resourceName,
@@ -127,8 +128,6 @@ protected:
 	using ComPtr = Microsoft::WRL::ComPtr<T>;
 	ComPtr<ID2D1Factory> m_pDirect2dFactory;
 	ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget;
-	ComPtr<ID2D1SolidColorBrush> m_pLightSlateGrayBrush;
-	ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
 	ComPtr<IWICImagingFactory> m_pImageFactory;
 
 	// º¸ Û ‰»Î

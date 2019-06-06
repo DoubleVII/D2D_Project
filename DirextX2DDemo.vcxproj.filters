@@ -22,28 +22,25 @@
     <Filter Include="头文件\graphic">
       <UniqueIdentifier>{68487f18-5d68-404c-b8fb-51e9ef0d60e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\D2DLib">
+      <UniqueIdentifier>{6b15c32e-0f5c-4f66-8610-4177703cf8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\D2DLib">
+      <UniqueIdentifier>{ccb9d3c6-b0b6-4169-8057-a82800cc5779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Game">
+      <UniqueIdentifier>{cee00bc9-de69-4700-a41c-3ebda59929af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Game">
+      <UniqueIdentifier>{c6acc1a8-c220-47ed-bea9-9d6b0f9aa34f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d3dApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="GameApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTimer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="D2DApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>通用文件</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>通用文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GameRectangle.h">
       <Filter>头文件\graphic</Filter>
@@ -54,26 +51,35 @@
     <ClInclude Include="GameCircle.h">
       <Filter>头文件\graphic</Filter>
     </ClInclude>
-    <ClInclude Include="resources.h">
+    <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BItmapRectangle.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DApp.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dApp.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>头文件\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GirdBackground.h">
+      <Filter>头文件\graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d3dApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTimer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D2DApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -93,12 +99,35 @@
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="BItmapRectangle.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DApp.cpp">
+      <Filter>源文件\D2DLib</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dApp.cpp">
+      <Filter>源文件\D2DLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>源文件\D2DLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>源文件\D2DLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>源文件\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GirdBackground.cpp">
+      <Filter>源文件\graphic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="head.jpg">
+    <Image Include="resources\category.png">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirextX2DDemo.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

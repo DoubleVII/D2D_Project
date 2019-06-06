@@ -34,8 +34,23 @@ D2DApp::D2DApp(HINSTANCE hInstance) :
 	m_Resizing(false),
 	m_pDirect2dFactory(nullptr),
 	m_pRenderTarget(nullptr),
-	m_pLightSlateGrayBrush(nullptr),
-	m_pCornflowerBlueBrush(nullptr),
+	m_pImageFactory(nullptr)
+{
+	g_pd2dApp = this;
+}
+
+D2DApp::D2DApp(HINSTANCE hInstance, int windowWidth, int windowHeight)
+	:m_hAppInst(hInstance),
+	m_MainWndCaption(L"Rendering a Cube"),
+	m_ClientWidth(windowWidth),
+	m_ClientHeight(windowHeight),
+	m_hMainWnd(nullptr),
+	m_AppPaused(false),
+	m_Minimized(false),
+	m_Maximized(false),
+	m_Resizing(false),
+	m_pDirect2dFactory(nullptr),
+	m_pRenderTarget(nullptr),
 	m_pImageFactory(nullptr)
 {
 	g_pd2dApp = this;
@@ -46,8 +61,6 @@ D2DApp::~D2DApp()
 {
 	m_pDirect2dFactory.Reset();
 	m_pRenderTarget.Reset();
-	m_pLightSlateGrayBrush.Reset();
-	m_pCornflowerBlueBrush.Reset();
 }
 
 
@@ -170,7 +183,7 @@ HRESULT D2DApp::CreateDeviceIndependentResources()
 
 	// Create a Direct2D factory.
 	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, m_pDirect2dFactory.GetAddressOf());
-	
+
 	return hr;
 }
 
@@ -195,16 +208,6 @@ HRESULT D2DApp::CreateDeviceResources()
 			m_pRenderTarget.GetAddressOf()
 		);
 
-
-		if (SUCCEEDED(hr))
-		{
-			// Create a gray brush.
-			hr = m_pRenderTarget->CreateSolidColorBrush(
-				D2D1::ColorF(D2D1::ColorF::LightSlateGray),
-				m_pLightSlateGrayBrush.GetAddressOf()
-			);
-		}
-
 		if (SUCCEEDED(hr)) {
 			hr = CoInitialize(nullptr);
 		}
@@ -218,27 +221,17 @@ HRESULT D2DApp::CreateDeviceResources()
 				(LPVOID*)m_pImageFactory.GetAddressOf()
 			);
 		}
-		
-
-		if (SUCCEEDED(hr))
-		{
-			// Create a blue brush.
-			hr = m_pRenderTarget->CreateSolidColorBrush(
-				D2D1::ColorF(D2D1::ColorF::CornflowerBlue),
-				m_pCornflowerBlueBrush.GetAddressOf()
-			);
-		}
 	}
 
 	return hr;
 }
 
 
-void D2DApp::DiscardDeviceResources()
+HRESULT D2DApp::CreateSolidColorBrush(ID2D1SolidColorBrush** brush, D2D1::ColorF color)
 {
-	m_pRenderTarget.Reset();
-	m_pLightSlateGrayBrush.Reset();
-	m_pCornflowerBlueBrush.Reset();
+	HRESULT hr = S_OK;
+	hr = m_pRenderTarget->CreateSolidColorBrush(color, brush);
+	return hr;
 }
 
 
@@ -355,8 +348,7 @@ HRESULT D2DApp::LoadResourceBitmap(
 	PCWSTR resourceType,
 	UINT destinationWidth,
 	UINT destinationHeight,
-	ID2D1Bitmap** ppBitmap
-)
+	ID2D1Bitmap** ppBitmap)
 {
 	IWICBitmapDecoder* pDecoder = NULL;
 	IWICBitmapFrameDecode* pSource = NULL;
@@ -379,6 +371,7 @@ HRESULT D2DApp::LoadResourceBitmap(
 
 		hr = imageResDataHandle ? S_OK : E_FAIL;
 	}
+
 	if (SUCCEEDED(hr))
 	{
 		// Lock it to get a system memory pointer.
@@ -392,8 +385,8 @@ HRESULT D2DApp::LoadResourceBitmap(
 		imageFileSize = SizeofResource(HINST_THISCOMPONENT, imageResHandle);
 
 		hr = imageFileSize ? S_OK : E_FAIL;
-
 	}
+
 	if (SUCCEEDED(hr))
 	{
 		// Create a WIC stream to map onto the memory.
@@ -407,6 +400,7 @@ HRESULT D2DApp::LoadResourceBitmap(
 			imageFileSize
 		);
 	}
+
 	if (SUCCEEDED(hr))
 	{
 		// Create a decoder for the stream.
@@ -417,20 +411,22 @@ HRESULT D2DApp::LoadResourceBitmap(
 			&pDecoder
 		);
 	}
+
 	if (SUCCEEDED(hr))
 	{
 		// Create the initial frame.
 		hr = pDecoder->GetFrame(0, &pSource);
 	}
+
 	if (SUCCEEDED(hr))
 	{
 		// Convert the image format to 32bppPBGRA
 		// (DXGI_FORMAT_B8G8R8A8_UNORM + D2D1_ALPHA_MODE_PREMULTIPLIED).
 		hr = m_pImageFactory->CreateFormatConverter(&pConverter);
 	}
-
 	if (SUCCEEDED(hr))
 	{
+
 		hr = pConverter->Initialize(
 			pSource,
 			GUID_WICPixelFormat32bppPBGRA,
@@ -439,27 +435,28 @@ HRESULT D2DApp::LoadResourceBitmap(
 			0.f,
 			WICBitmapPaletteTypeMedianCut
 		);
-		if (SUCCEEDED(hr))
-		{
-			//create a Direct2D bitmap from the WIC bitmap.
-			hr = m_pRenderTarget->CreateBitmapFromWicBitmap(
-				pConverter,
-				NULL,
-				ppBitmap
-			);
-
-		}
-
-		SafeRelease(&pDecoder);
-		SafeRelease(&pSource);
-		SafeRelease(&pStream);
-		SafeRelease(&pConverter);
-		SafeRelease(&pScaler);
-
-		return hr;
 	}
+
+	if (SUCCEEDED(hr))
+	{
+		//create a Direct2D bitmap from the WIC bitmap.
+		hr = m_pRenderTarget->CreateBitmapFromWicBitmap(
+			pConverter,
+			NULL,
+			ppBitmap
+		);
+
+	}
+
+	SafeRelease(&pDecoder);
+	SafeRelease(&pSource);
+	SafeRelease(&pStream);
+	SafeRelease(&pConverter);
+	SafeRelease(&pScaler);
+
 	return hr;
 }
+
 
 
 

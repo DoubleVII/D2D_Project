@@ -5,22 +5,18 @@
 #include "Drawable.h"
 #include <list>
 
-#include "GameRectangle.h"
-#include "StrockRectangle.h"
-#include "GameCircle.h"
-#include "BitmapRectangle.h"
-
 class GameApp : public D2DApp
 {
 
 
 public:
 	GameApp(HINSTANCE hInstance);
+	GameApp(HINSTANCE hInstance, int windowWidth, int windowHeight);
 	~GameApp();
 
 	bool Init();
 	void OnResize();
-	void UpdateScene(float dt);
+	//void UpdateScene(float dt);
 	void DrawScene();
 
 	void addGraphic(Drawable* g);
@@ -30,13 +26,12 @@ public:
 private:
 	bool InitResource();
 	std::list<Drawable*> graphics;
-	GameRectangle* temRect;
-	StrockRectangle* temRect2;
-	GameCircle* temCircle;
-	BitmapRectangle* temRect3;
 
-	ComPtr<ID2D1Bitmap> temBitmap;
+protected:
+	virtual void GameInit() = 0;
 };
+
+
 
 
 #endif

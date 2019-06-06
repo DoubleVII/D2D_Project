@@ -21,6 +21,6 @@ protected:
 	ID2D1Bitmap* pBitmap;
 	FLOAT opacity;
 
-	void drawStyle(ComPtr<ID2D1HwndRenderTarget> m_pRenderTarget);
+	void drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget);
 };
 
