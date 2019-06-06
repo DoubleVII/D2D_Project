@@ -21,7 +21,7 @@ GameRectangle* Rect = new GameRectangle(m_pLightSlateGrayBrush.Get(), 100.f, 100
 addGraphic(Rect);
 ```
 效果
-![绘制的矩形](图片地址)
+![绘制的矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRectangle.PNG)
 
 ### 绘制一个圆
 
