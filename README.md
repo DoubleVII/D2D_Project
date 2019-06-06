@@ -29,7 +29,8 @@ result
 
 ### Draw a Circle
 
-Create a circle with a brush```cpp
+Create a circle with a brush
+```cpp
 //x=600, y=400, radius=40
 GameCircle* Circle = new GameCircle(m_pCornflowerBlueBrush.Get(), 600.f, 400.f, 40.f);
 ```
