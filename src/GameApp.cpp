@@ -82,6 +82,11 @@ void GameApp::removeGraphic(Drawable* g)
 	graphics.remove(g);
 }
 
+void GameApp::addGraphicToFront(Drawable* g)
+{
+	graphics.push_front(g);
+}
+
 
 bool GameApp::InitResource()
 {

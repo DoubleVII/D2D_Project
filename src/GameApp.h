@@ -21,14 +21,15 @@ public:
 
 	void addGraphic(Drawable* g);
 	void removeGraphic(Drawable* g);
+	void addGraphicToFront(Drawable* g);
 
 
 private:
 	bool InitResource();
-	std::list<Drawable*> graphics;
-
+	
 protected:
 	virtual void GameInit() = 0;
+	std::list<Drawable*> graphics;
 };
 
 
