@@ -84,13 +84,13 @@ void GameController::GameInit()
 	
 	addGraphic(background);
 	addGraphic(gameText);
-	//addGraphic(temRect3);
-	//addGraphic(temRect);
-	//addGraphic(temRect2);
-	//addGraphic(temRect4);
-	//addGraphic(temRect5);
-	//addGraphic(temCircle);
-	addGraphic(line);
+	addGraphic(temRect3);
+	addGraphic(temRect);
+	addGraphic(temRect2);
+	addGraphic(temRect4);
+	addGraphic(temRect5);
+	addGraphic(temCircle);
+	//addGraphic(line);
 }
 
 void GameController::UpdateScene(float dt)
@@ -109,7 +109,14 @@ void GameController::UpdateScene(float dt)
 	//例子
 	//鼠标拖动
 	if (mouseState.leftButton == true && m_MouseTracker.leftButton == m_MouseTracker.HELD) {
+		
+	}
 
+	if (mouseState.x > temRect3->getX() && mouseState.x < temRect3->getX() + temRect3->getWidth() && mouseState.y > temRect3->getY() && mouseState.y < temRect3->getY() + temRect3->getHeight()) {
+		temRect3->setOpacity(0.5f);
+	}
+	else {
+		temRect3->setOpacity(1.0f);
 	}
 
 	//例子
