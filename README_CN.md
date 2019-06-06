@@ -11,8 +11,49 @@ A 2D Game based on Direct 2D and code partly with assembly lang.
 ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
 CreateSolidColorBrush(m_pLightSlateGrayBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::LightSlateGray));
 ```
-### 绘制一个圆形
+然后使用笔刷创建一个矩形
+```cpp
+//x=100, y=100, width=50, height=80, angle = 30
+GameRectangle* Rect = new GameRectangle(m_pLightSlateGrayBrush.Get(), 100.f, 100.f, 50.f, 80.f, 30.f);
+```
+将矩形添加到图形队列中
+```cpp
+addGraphic(Rect);
+```
+效果
+![绘制的矩形](图片地址)
+
+### 绘制一个圆
+
+使用笔刷创建一个圆
+```cpp
+//x=600, y=400, radius=40
+GameCircle* Circle = new GameCircle(m_pCornflowerBlueBrush.Get(), 600.f, 400.f, 40.f);
+```
+将圆添加到图形队列中
+```cpp
+addGraphic(Circle);
+```
+效果
+![绘制的圆](图片地址)
+
+
 ### 绘制一个位图
+从资源中加载位图
+```cpp
+ComPtr<ID2D1Bitmap> Bitmap;
+LoadResourceBitmap(MAKEINTRESOURCE(IDB_PNG2), L"PNG", 0, 0, Bitmap.GetAddressOf());
+```
+使用位图创建一个位图矩形
+```cpp
+BitmapRect = new BitmapRectangle(temBitmap.Get(), ((Bitmap)->GetSize()).width, ((Bitmap)->GetSize()).height);
+```
+将位图矩形添加到图形队列中
+```cpp
+addGraphic(BitmapRect);
+```
+效果
+![绘制的位图](图片地址)
 
 ## 架构
 ### Windows编程
