@@ -76,6 +76,7 @@ addGraphic(line);
 ### 绘制文本
 创建字体格式和笔刷
 ```cpp
+std::wstring textStr = L"Use W,A,S,D to move.";
 ComPtr<IDWriteTextFormat> defaultTextFormat;
 CreateTextFormat(defaultTextFormat.GetAddressOf(), 30.f, L"Microsoft YaHei");
 CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
