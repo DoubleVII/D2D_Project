@@ -7,7 +7,7 @@ A 2D Game based on Direct 2D and code partly with assembly lang.
 ### 绘制一个矩形
 
 首先创建一个笔刷
-```
+```cpp
 ComPtr<ID2D1SolidColorBrush> m_pCornflowerBlueBrush;
 CreateSolidColorBrush(m_pLightSlateGrayBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::LightSlateGray));
 ```
