@@ -58,6 +58,42 @@ addGraphic(BitmapRect);
 
 ![绘制的位图](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawBitmap.PNG)
 
+### 绘制线段
+使用笔刷创建一个线段
+```cpp
+CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
+//x1=300, y1 = 300, x2 = 600, y2 = 900, stroke = 3
+GameLine* line = new GameLine(m_pCornflowerBlueBrush.Get(), 300.f, 300.f, 600.f, 900.f, 3.f);
+```
+将线段添加到图形队列中
+```cpp
+addGraphic(line);
+```
+效果
+
+![绘制的线段](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawLine.PNG)
+
+### 绘制文本
+创建字体格式和笔刷
+```cpp
+ComPtr<IDWriteTextFormat> defaultTextFormat;
+CreateTextFormat(defaultTextFormat.GetAddressOf(), 30.f, L"Microsoft YaHei");
+CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
+```
+使用字体格式和笔刷创建文本
+```cpp
+//The matrix of text alignment: x1=0, y1 = 0, x2 = 1200, y2 = 100
+GameText* gameText = new GameText(m_pCornflowerBlueBrush.Get(), defaultTextFormat.Get(), textStr.c_str(), textStr.size(), 0, 0, 1200, 100);
+```
+将线段添加到图形队列中
+```cpp
+addGraphic(gameText);
+```
+
+效果
+
+![绘制的文本](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawText.PNG)
+
 ## 架构
 ### Windows编程
 首先，你可能需要了解Windows程序的基本结构，如窗体的初始化和程序的主循环，你可能需要在主循环中运行你的游戏主程序。其次，你应该了解Windows消息循环的概念，以及在程序中典型的消息处理方式（常常作为一个函数出现）。
