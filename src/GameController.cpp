@@ -1,5 +1,5 @@
 #include "GameController.h"
-#include "resource.h"
+#include "../resource.h"
 
 
 #include "GameRectangle.h"
