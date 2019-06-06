@@ -33,6 +33,7 @@ StrokeRectangle* Rect = new StrokeRectangle(m_pCornflowerBlueBrush.Get(), 400.f,
 ```
 
 效果
+
 ![绘制的描边矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawStrokeRectangle.PNG)
 
 ### 绘制圆角矩形
@@ -46,6 +47,7 @@ addGraphic(Rect);
 ```
 
 效果
+
 ![绘制的圆角矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRoundedRectangle.PNG)
 
 您也可以通过StrokeRoundedRectangle绘制描边的圆角矩形
