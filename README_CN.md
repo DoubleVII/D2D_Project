@@ -4,7 +4,8 @@ A 2D Game based on Direct 2D and code partly with assembly lang.
 这是一个使用Direct 2D制作的游戏图形框架，通过调用一些内置的接口，可以简易地向屏幕输出图形，包括线、圆、矩形、位图等。
 
 ## 开始
-### 绘制一个矩形
+### 绘制矩形
+绘制部分的代码全部位于 `void GameController::GameInit()`
 
 首先创建一个笔刷
 ```cpp
@@ -24,7 +25,39 @@ addGraphic(Rect);
 
 ![绘制的矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRectangle.PNG)
 
-### 绘制一个圆
+
+您也可以通过StrokeRectangle绘制描边的矩形
+```cpp
+///x=400, y=300, width=70, height=30, stroke=5
+StrokeRectangle* Rect = new StrokeRectangle(m_pCornflowerBlueBrush.Get(), 400.f, 300.f, 70.f, 30.f, 5.0f);
+```
+
+效果
+![绘制的描边矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawStrokeRectangle.PNG)
+
+### 绘制圆角矩形
+使用笔刷创建一个圆角矩形
+```cpp
+RoundedRectangle* Rect = new RoundedRectangle(m_pLightSlateGrayBrush.Get(), 300.f, 500.f, 120.f, 50.f, 10.f);
+```
+将圆角矩形添加到图形队列中
+```cpp
+addGraphic(Rect);
+```
+
+效果
+![绘制的圆角矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRoundedRectangle.PNG)
+
+您也可以通过StrokeRoundedRectangle绘制描边的圆角矩形
+```cpp
+///x=500, y=500, width=120, height=50, stroke=3, radius=10
+StrokeRectangle* Rect = new StrokeRoundedRectangle(m_pLightSlateGrayBrush.Get(), 500.f, 500.f, 120.f, 50.f, 3.f, 10.f);
+```
+
+效果
+![绘制的描边圆角矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRoundedStrokeRectangle.PNG)
+
+### 绘制圆
 
 使用笔刷创建一个圆
 ```cpp
@@ -40,7 +73,7 @@ addGraphic(Circle);
 ![绘制的圆](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawCircle.PNG)
 
 
-### 绘制一个位图
+### 绘制位图
 从资源中加载位图
 ```cpp
 ComPtr<ID2D1Bitmap> Bitmap;
@@ -94,6 +127,68 @@ addGraphic(gameText);
 效果
 
 ![绘制的文本](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawText.PNG)
+
+### 绘制背景
+使用程序内置的默认网格背景
+```cpp
+GirdBackground* background = new GirdBackground(m_pLightSlateGrayBrush.Get());
+addGraphic(background);
+```
+
+效果
+
+![绘制的背景](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawBackground.PNG)
+
+你可能会注意到，这个背景由一个纯色底色和许多线段组成，事实上GirdBackground的内部就是使用绘制线段完成的。
+
+### 自定义图形
+所有的图形类都应该直接或间接继承自Drawable类，它有一个`void draw(ID2D1HwndRenderTarget* m_pRenderTarget)`方法，Direct2D的渲染目标被作为参数传入。自定义的图形类可以在该方法中通过m_pRenderTarget绘制各种图形或图像。
+
+### 响应键盘和鼠标事件
+使用m_pMouse、m_MouseTracker、m_pKeyboard和m_KeyboardTracker获取鼠标和键盘的状态。
+
+它们被声明在GameController的基类中：
+```cpp
+std::unique_ptr<DirectX::Mouse> m_pMouse;
+DirectX::Mouse::ButtonStateTracker m_MouseTracker;
+std::unique_ptr<DirectX::Keyboard> m_pKeyboard;
+DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
+```
+
+在程序运行时，UpdateScene方法会被不断调用，参数dt给出了距离上次调用的时间长度。您可以在UpdateScene方法中更新被加入图形队列中的图形的数据，然后它们会被绘制在屏幕上。
+
+下面给出了一些使用m_pMouse、m_MouseTracker、m_pKeyboard和m_KeyboardTracker的方法，并实现了通过W，A，S，D键控制矩形移动的功能。
+```cpp
+// in void GameController::UpdateScene(float dt)
+// get mouse state
+	Mouse::State mouseState = m_pMouse->GetState();
+	Mouse::State lastMouseState = m_MouseTracker.GetLastState();
+	// get keyboard state
+	Keyboard::State keyState = m_pKeyboard->GetState();
+	Keyboard::State lastKeyState = m_KeyboardTracker.GetLastState();
+
+	// Update mouse button status tracker
+	m_MouseTracker.Update(mouseState);
+	m_KeyboardTracker.Update(keyState);
+
+	// example
+	//Mouse drag event
+	if (mouseState.leftButton == true && m_MouseTracker.leftButton == m_MouseTracker.HELD) {
+     //To do somthing
+	}
+
+	// example
+	// Keyboard event
+	if (keyState.IsKeyDown(Keyboard::W))
+		rect3->setY(temRect3->getY() - 100.f * dt);
+	if (keyState.IsKeyDown(Keyboard::S))
+		rect3->setY(temRect3->getY() + 100.f * dt);
+	if (keyState.IsKeyDown(Keyboard::A))
+		rect3->setX(temRect3->getX() - 100.f * dt);
+	if (keyState.IsKeyDown(Keyboard::D))
+		rect3->setX(temRect3->getX() + 100.f * dt);
+```
+
 
 ## 架构
 ### Windows编程

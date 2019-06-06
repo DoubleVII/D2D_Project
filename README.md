@@ -8,6 +8,7 @@ This is a game graphics framework made with Direct 2D. By calling some built-in 
 
 ## Start Up
 ### Draw a rectangle
+The code for drawing parts is all in "void GameController::GameInit()"
 
 First create a brush
 ```cpp
@@ -62,6 +63,42 @@ result
 
 ![Drawn bitmap](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawBitmap.PNG)
 
+### Draw a Line
+Create a line segment with a brush
+```cpp
+CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
+//x1=300, y1 = 300, x2 = 600, y2 = 900, stroke = 3
+GameLine* line = new GameLine(m_pCornflowerBlueBrush.Get(), 300.f, 300.f, 600.f, 900.f, 3.f);
+```
+Add line segments to the graphics queue
+```cpp
+addGraphic(line);
+```
+result
+
+![绘制的线段](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawLine.PNG)
+
+### Draw Text
+Create font formatting and brushes
+```cpp
+std::wstring textStr = L"Use W,A,S,D to move.";
+ComPtr<IDWriteTextFormat> defaultTextFormat;
+CreateTextFormat(defaultTextFormat.GetAddressOf(), 30.f, L"Microsoft YaHei");
+CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
+```
+Create text using font formatting and brushes
+```cpp
+//The matrix of text alignment: x1=0, y1 = 0, x2 = 1200, y2 = 100
+GameText* gameText = new GameText(m_pCornflowerBlueBrush.Get(), defaultTextFormat.Get(), textStr.c_str(), textStr.size(), 0, 0, 1200, 100);
+```
+Add line segments to the graphics queue
+```cpp
+addGraphic(gameText);
+```
+
+result
+
+![绘制的文本](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawText.PNG)
 
 ## Architecture
 ### Windows Program
