@@ -8,6 +8,7 @@ This is a game graphics framework made with Direct 2D. By calling some built-in 
 
 ## Start Up
 ### Draw a rectangle
+The code for drawing parts is all in "void GameController::GameInit()"
 
 First create a brush
 ```cpp
