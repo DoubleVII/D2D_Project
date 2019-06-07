@@ -202,11 +202,28 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 ## 编程
 为了编写您的游戏，您只需要关注GameControll和框架自带的图形类即可（或者您可以自己实现图形类）。
 
+### ComPtr智能指针
+在项目中使用了ComPtr智能指针以减少内存泄漏的Bug，这里简要介绍智能指针的接口方法。更多关于智能指针的详细介请参考[DirectX11--ComPtr智能指针](https://www.cnblogs.com/X-Jun/p/10189859.html)。
+>使用该智能指针需要包含头文件wrl/client.h，并且智能指针类模板ComPtr位于名称空间Microsoft::WRL内。
+
+>首先有五个比较常用的方法需要了解一下：
+>方法|描述
+>---|---:
+>ComPtr::Get|该方法返回T*，并且不会触发引用计数加1，常用在COM组件接口的函数输入
+>ComPtr::GetAddressOf|该方法返回T**，常用在COM组件接口的函数输出
+>ComPtr::Reset|该方法对里面的实例调用Release方法，并将指针置为nullptr
+>ComPtr::ReleaseAndGetAddressOf|该方法相当于先调用Reset方法，再调用GetAddressOf方法获取T**，常用在COM组件接口的函数输出，适用于实例可能会被反复构造的情况下
+>ComPtr::As|一个模板函数，可以替代IUnknown::QueryInterface的调用，需要传递一个ComPtr实例的地址
+
+
+
+### GameControll的接口
+
 在GameController类中，有两个方法需要特别关注，`void GameController::GameInit()
 `和`void GameController::UpdateScene(float dt)`。
 
 简单来讲，您需要在GameInit中初始化您的游戏，在UpdateScene中完成所有的数据更新，同时您的游戏主要逻辑也在UpdateScene中执行。
-### GameControll的接口
+
 #### void addGraphic(Drawable* g)
 向图形队列尾部添加一个图形。图形队列中的所有图形会被绘制在屏幕上。
 
