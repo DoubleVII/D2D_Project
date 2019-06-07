@@ -142,6 +142,9 @@
     <ClInclude Include="src\Keyboard.h" />
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\RoundedRectangle.h" />
+    <ClInclude Include="src\SoundAdapter.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="src\StrokeRectangle.h" />
     <ClInclude Include="src\StrokeRoundedRectangle.h" />
   </ItemGroup>
@@ -163,6 +166,9 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\RoundedRectangle.cpp" />
+    <ClCompile Include="src\SoundAdapter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\StrokeRectangle.cpp" />
     <ClCompile Include="src\StrokeRoundedRectangle.cpp" />
   </ItemGroup>

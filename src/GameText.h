@@ -8,6 +8,14 @@ public:
 	virtual ~GameText();
 	void draw(ID2D1HwndRenderTarget* m_pRenderTarget);
 
+	void setText(const wchar_t* text) {
+		this->text = text;
+	}
+
+	LPCTSTR getText() {
+		return text;
+	}
+
 protected:
 	IDWriteTextFormat* textFormat;
 	ID2D1Brush* brush;
