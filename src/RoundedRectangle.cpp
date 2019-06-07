@@ -24,10 +24,10 @@ void RoundedRectangle::drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget)
 	assert(brush);
 	m_pRenderTarget->FillRoundedRectangle(D2D1::RoundedRect(
 		D2D1::RectF(
-		x - width / 2,
-		y - height / 2,
-		x + width / 2,
-		y + height / 2),
+		x,
+		y,
+		x + width,
+		y + height),
 		radius,
 		radius),
 		brush);

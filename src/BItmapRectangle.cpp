@@ -26,10 +26,10 @@ BitmapRectangle::~BitmapRectangle()
 void BitmapRectangle::drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget)
 {
 	m_pRenderTarget->DrawBitmap(pBitmap, D2D1::RectF(
-		x - width / 2,
-		y - height / 2,
-		x + width / 2,
-		y + height / 2),
+		x,
+		y,
+		x + width,
+		y + height),
 		opacity,
 		D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 }

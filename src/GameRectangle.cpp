@@ -28,8 +28,8 @@ GameRectangle::GameRectangle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT width, F
 
 GameRectangle::GameRectangle(ID2D1Brush* brush, FLOAT width, FLOAT height)
 	: brush(brush),
-	x(width/2),
-	y(height/2),
+	x(0),
+	y(0),
 	width(width),
 	height(height),
 	angle(0.f),
@@ -42,7 +42,7 @@ void GameRectangle::draw(ID2D1HwndRenderTarget* m_pRenderTarget)
 	assert(m_pRenderTarget);
 
 	if (rotate) {
-		D2D1_POINT_2F center = D2D1::Point2F(x, y);
+		D2D1_POINT_2F center = D2D1::Point2F(x + width/2, y + height/2);
 		m_pRenderTarget->SetTransform(
 			D2D1::Matrix3x2F::Rotation(angle, center)
 		);
@@ -61,9 +61,9 @@ void GameRectangle::draw(ID2D1HwndRenderTarget* m_pRenderTarget)
 void GameRectangle::drawStyle(ID2D1HwndRenderTarget* m_pRenderTarget) {
 	assert(brush);
 	m_pRenderTarget->FillRectangle(D2D1::RectF(
-		x - width / 2,
-		y - height / 2,
-		x + width / 2,
-		y + height / 2),
+		x,
+		y,
+		x + width,
+		y + height),
 		brush);
 }

@@ -10,7 +10,7 @@ GameCircle::GameCircle(ID2D1Brush* brush, FLOAT x, FLOAT y, FLOAT radius)
 
 GameCircle::GameCircle(ID2D1Brush* brush, FLOAT radius)
 	:brush(brush),
-	x(radius/2),
+	x(radius / 2),
 	y(radius / 2),
 	radius(radius)
 {
