@@ -3,6 +3,13 @@ A 2D Game based on Direct 2D and code partly with assembly lang.
 ## 介绍
 这是一个使用Direct 2D制作的游戏图形框架，通过调用一些内置的接口，可以简易地向屏幕输出图形，包括线、圆、矩形、位图等。
 
+## 环境和项目配置
+本项目使用Microsoft Visual Studio 2019编写，使用VS2019直接打开项目根目录的sln文件即可。
+### 项目配置
+打开项目后，需要手动设置项目的属性，否则不能成功编译。
+* 鼠标右击项目（DirextX2DDemo）->属性->常规->字符集->使用Unicode字符集
+* 项目属性->链接器->系统->子系统>窗口 (/SUBSYSTEM:WINDOWS)
+
 ## 开始
 ### 绘制矩形
 绘制部分的代码全部位于 `void GameController::GameInit()`
