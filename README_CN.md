@@ -207,13 +207,13 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 >使用该智能指针需要包含头文件wrl/client.h，并且智能指针类模板ComPtr位于名称空间Microsoft::WRL内。
 
 >首先有五个比较常用的方法需要了解一下：
->方法|描述
->---|---:
->ComPtr::Get|该方法返回T*，并且不会触发引用计数加1，常用在COM组件接口的函数输入
->ComPtr::GetAddressOf|该方法返回T**，常用在COM组件接口的函数输出
->ComPtr::Reset|该方法对里面的实例调用Release方法，并将指针置为nullptr
->ComPtr::ReleaseAndGetAddressOf|该方法相当于先调用Reset方法，再调用GetAddressOf方法获取T**，常用在COM组件接口的函数输出，适用于实例可能会被反复构造的情况下
->ComPtr::As|一个模板函数，可以替代IUnknown::QueryInterface的调用，需要传递一个ComPtr实例的地址
+>|方法|描述|
+>|---|---:|
+>|ComPtr::Get|该方法返回T*，并且不会触发引用计数加1，常用在COM组件接口的函数输入|
+>|ComPtr::GetAddressOf|该方法返回T**，常用在COM组件接口的函数输出|
+>|ComPtr::Reset|该方法对里面的实例调用Release方法，并将指针置为nullptr|
+>|ComPtr::ReleaseAndGetAddressOf|该方法相当于先调用Reset方法，再调用GetAddressOf方法获取T**，常用在COM组件接口的函数输出，适用于实例可能会被反复构造的情况下|
+>|ComPtr::As|一个模板函数，可以替代IUnknown::QueryInterface的调用，需要传递一个ComPtr实例的地址|
 
 
 
