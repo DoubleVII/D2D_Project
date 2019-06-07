@@ -207,7 +207,7 @@ Here are some ways to use `m_pMouse`, `m_MouseTracker`, `m_pKeyboard`, and `m_Ke
 In order to write your game, you only need to pay attention to `GameControll` and the graphics class that comes with the framework (or you can implement the graphics class yourself).
 
 ### `ComPtr`Smart pointer
-The `ComPtr` smart pointer is used in the project to reduce the memory leak. Here is a brief introduction to the smart pointer interface method. For more details on smart pointers, please refer to [DirectX11--ComPtr Smart Pointer] (https://www.cnblogs.com/X-Jun/p/10189859.html).
+The `ComPtr` smart pointer is used in the project to reduce the memory leak. Here is a brief introduction to the smart pointer interface method. For more details on smart pointers, please refer to [DirectX11--ComPtr Smart Pointer](https://www.cnblogs.com/X-Jun/p/10189859.html).
 
 >The smart pointer needs to include the header file wrl/client.h, and the smart pointer class template ComPtr is located in the namespace Microsoft::WRL.
 >
