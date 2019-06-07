@@ -18,6 +18,7 @@
 #include <string>
 
 #include "GameTimer.h"
+#include "SoundAdapter.h"
 
 #include "Mouse.h"
 #include "Keyboard.h"
@@ -130,6 +131,8 @@ protected:
 	HRESULT CreateTextFormat(IDWriteTextFormat** textFormat, FLOAT fontSize, const WCHAR* fontFamily, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_ALIGNMENT textAlignment, DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
 
 protected:
+	SoundAdapter soundAdapter;
+
 	template <class T>
 	using ComPtr = Microsoft::WRL::ComPtr<T>;
 	ComPtr<ID2D1Factory> m_pDirect2dFactory;

@@ -93,6 +93,12 @@
     <ClInclude Include="src\SoundAdapter.h">
       <Filter>头文件\D2DLib</Filter>
     </ClInclude>
+    <ClInclude Include="GameSound.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameSound.h">
+      <Filter>头文件\D2DLib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BItmapRectangle.cpp">
@@ -147,6 +153,9 @@
       <Filter>源文件\graphic</Filter>
     </ClCompile>
     <ClCompile Include="src\SoundAdapter.cpp">
+      <Filter>源文件\D2DLib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameSound.cpp">
       <Filter>源文件\D2DLib</Filter>
     </ClCompile>
   </ItemGroup>

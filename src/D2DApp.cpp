@@ -123,6 +123,10 @@ bool D2DApp::Init()
 	if (!InitDirect2D())
 		return false;
 
+	if (!soundAdapter.Init(m_hMainWnd)) {
+		return false;
+	}
+
 	return true;
 }
 

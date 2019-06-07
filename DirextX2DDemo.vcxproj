@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameSound.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\BItmapRectangle.h" />
     <ClInclude Include="src\D2DApp.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="src\GameController.h" />
     <ClInclude Include="src\GameLine.h" />
     <ClInclude Include="src\GameRectangle.h" />
+    <ClInclude Include="src\GameSound.h" />
     <ClInclude Include="src\GameText.h" />
     <ClInclude Include="src\GameTimer.h" />
     <ClInclude Include="src\GirdBackground.h" />
@@ -143,7 +145,7 @@
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\RoundedRectangle.h" />
     <ClInclude Include="src\SoundAdapter.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\StrokeRectangle.h" />
     <ClInclude Include="src\StrokeRoundedRectangle.h" />
@@ -159,6 +161,7 @@
     <ClCompile Include="src\GameController.cpp" />
     <ClCompile Include="src\GameLine.cpp" />
     <ClCompile Include="src\GameRectangle.cpp" />
+    <ClCompile Include="src\GameSound.cpp" />
     <ClCompile Include="src\GameText.cpp" />
     <ClCompile Include="src\GameTimer.cpp" />
     <ClCompile Include="src\GirdBackground.cpp" />
@@ -167,7 +170,7 @@
     <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\RoundedRectangle.cpp" />
     <ClCompile Include="src\SoundAdapter.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\StrokeRectangle.cpp" />
     <ClCompile Include="src\StrokeRoundedRectangle.cpp" />

@@ -24,6 +24,8 @@ RoundedRectangle* temRect4;
 StrokeRoundedRectangle* temRect5;
 GameLine* line;
 GameText* gameText;
+GameSound* sound;
+
 std::wstring textStr = L"Use W,A,S,D to move.";
 
 template <class T>
@@ -66,7 +68,7 @@ void GameController::GameInit()
 	CreateSolidColorBrush(m_pCornflowerBlueBrush.GetAddressOf(), D2D1::ColorF(D2D1::ColorF::CornflowerBlue));
 	CreateTextFormat(defaultTextFormat.GetAddressOf(), 30.f, L"Microsoft YaHei");
 
-	//LoadBitmapFromFile(L"head.jpg", 0, 0, temBitmap.GetAddressOf());
+	//LoadBitmapFromFile(L"resources/head.jpg", 0, 0, temBitmap.GetAddressOf());
 	background = new GirdBackground(m_pLightSlateGrayBrush.Get());
 	temRect = new GameRectangle(m_pLightSlateGrayBrush.Get(), 100.f, 100.f, 50.f, 80.f, 30.f);
 	temRect2 = new StrokeRectangle(m_pCornflowerBlueBrush.Get(), 400.f, 300.f, 70.f, 30.f, 5.0f);
@@ -91,7 +93,12 @@ void GameController::GameInit()
 	addGraphic(temRect5);
 	addGraphic(temCircle);
 	//addGraphic(line);
+	
+
+	soundAdapter.createSound((LPWSTR)L"resources/M11-07-27.wav", &sound, 10);
+	sound->play();
 }
+
 
 void GameController::UpdateScene(float dt)
 {
@@ -104,10 +111,17 @@ void GameController::UpdateScene(float dt)
 
 	// 更新鼠标按钮状态跟踪器
 	m_MouseTracker.Update(mouseState);
-	m_KeyboardTracker.Update(keyState);
-
-	//例子
-	//鼠标拖动
+	
+	int x = 1;
+	if(m_KeyboardTracker.lastState.IsKeyUp(Keyboard::W) && keyState.IsKeyDown(Keyboard::W)) {
+		
+		x++;
+	}
+	if (x == 10) {
+		x++;
+	}
+	// 例子
+	// 鼠标拖动
 	if (mouseState.leftButton == true && m_MouseTracker.leftButton == m_MouseTracker.HELD) {
 		
 	}
@@ -119,8 +133,8 @@ void GameController::UpdateScene(float dt)
 		temRect3->setOpacity(1.0f);
 	}
 
-	//例子
-	//键盘按下
+	// 例子
+	// 键盘按下
 	if (keyState.IsKeyDown(Keyboard::W))
 		temRect3->setY(temRect3->getY() - 100.f * dt);
 	if (keyState.IsKeyDown(Keyboard::S))
@@ -129,4 +143,8 @@ void GameController::UpdateScene(float dt)
 		temRect3->setX(temRect3->getX() - 100.f * dt);
 	if (keyState.IsKeyDown(Keyboard::D))
 		temRect3->setX(temRect3->getX() + 100.f * dt);
+
+
+	// 最后更新键盘状态
+	m_KeyboardTracker.Update(keyState);
 }

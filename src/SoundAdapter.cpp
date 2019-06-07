@@ -1,169 +1,49 @@
-#include "SoundAdapter.h"
+ï»¿#include "SoundAdapter.h"
 
-
-
-SoundAdapter::SoundAdapter()
+SoundAdapter::SoundAdapter():lpds(nullptr)
 {
 }
 
+bool SoundAdapter::Init(HWND main_window_handle)
+{
+	if (DirectSoundCreate(NULL, &lpds, NULL) != DS_OK)
+		return false;
+
+	if (lpds->SetCooperativeLevel(main_window_handle, DSSCL_PRIORITY) != DS_OK)
+		return false;
+	return true;
+}
 
 SoundAdapter::~SoundAdapter()
 {
 }
 
-
-
-#define WIN32_LEAN_AND_MEAN
-
-#include <iostream>
-#include <windows.h>
-#include <mmsystem.h>
-#include <dsound.h>
-using namespace std;
-
-
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "dsound.lib")
-#pragma comment(lib, "winmm.lib")
-#define WINCLASSNAME "winclass1"
-
-#ifndef DSBCAPS_CTRLDEFAULT
-#define DSBCAPS_CTRLDEFAULT (DSBCAPS_CTRLFREQUENCY  | DSBCAPS_CTRLPAN  | DSBCAPS_CTRLVOLUME)
-#endif
-
-
-//---------------------------------------
-LPDIRECTSOUND8 g_pDS = NULL;
-LPDIRECTSOUNDBUFFER g_pDsbuffer[3] = NULL;
-//CWaveFile* g_pWaveFile;//
-WAVEFORMATEX g_wfxInput; //ÊäÈëµÄÒôÆµ¸ñÊ½
-
-LPDIRECTSOUNDBUFFER LoadWaveFile(LPSTR lpzFileName)
-
+HRESULT SoundAdapter::createSound(LPWSTR filename, GameSound** gameSound, int maxConcurrentNumber)
 {
-
-	DSBUFFERDESC dsbdesc;
-
-	HRESULT hr;
-
-	BYTE* pBuffer;
-
-	DWORD dwSizeRead;
-
-	LPDIRECTSOUNDBUFFER lpdsbStatic = NULL;
-
-	if (FAILED(hr = g_pWaveFile->Open(lpzFileName, &g_wfxInput, WAVEFILE_WRITE)))
-
-		return NULL;
-
-	DWORD dwSize = g_pWaveFile->GetSize();
-
-	pBuffer = new BYTE[dwSize];
-
-	g_pWaveFile->Read(pBuffer, dwSize, &dwSizeRead);
-
-	if (dwSizeRead > 0)
-
-	{
-
-		memset((void*)dsbdesc, 0, sizeof(DSBUFFERDESC));
-
-		dsbdesc.dwSize = sizeof(DSBUFFERDESC);
-
-		dsbdesc.dwFlags = DSBCAPS_STATIC;
-
-		dsbdesc.dwBufferBytes = dwSizeRead;
-
-		dsbdesc.lpwfxFormat = g_wfxInput;
-
-		if (FAILED(g_pDS->CreateSoundBuffer(&dsbdesc, &lpdsbStatic, NULL)))
-
-		{
-
-			g_pWaveFile->Close();
-
-			delete pBuffer;
-
-			return NULL;
-
-		}
-
-		LPVOID lpvWrite;
-
-		DWORD dwLength;
-
-		if (DS_OK == lpdsbStatic->Lock(
-
-			0, // Offset at which to start lock.
-
-			0, // Size of lock; ignored because of flag.
-
-			&lpvWrite, // Gets address of first part of lock.
-
-			&dwLength, // Gets size of first part of lock.
-
-			NULL, // Address of wraparound not needed.
-
-			NULL, // Size of wraparound not needed.
-
-			DSBLOCK_ENTIREBUFFER)) // Flag.
-
-		{
-
-			memcpy(lpvWrite, pBuffer, dwLength);
-
-			lpdsbStatic->Unlock(
-
-				lpvWrite, // Address oflock start.
-
-				dwLength, // Size of lock.
-
-				NULL, // No wraparoundportion.
-
-				0); // No wraparound size.
-
-		}
-
+	HRESULT hr = S_OK;
+	LPDIRECTSOUNDBUFFER* sounds = new LPDIRECTSOUNDBUFFER[maxConcurrentNumber];
+	hr = DSound_Load_Wav(filename, sounds, maxConcurrentNumber);
+	if (SUCCEEDED(hr)) {
+		(*gameSound) = new GameSound(sounds, maxConcurrentNumber);
 	}
-
-	delete pBuffer;
-
-	return lpdsbStatic;
-
+	return hr;
 }
 
-////////////////////////////////
-LPDIRECTSOUND    lpds = NULL;
-
-
-HWND            main_window_handle = NULL;
-//////////////////////////////////
-LRESULT    CALLBACK    WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-int GameInit(void* params = NULL, int num = 0);
-int GameMain(void* params = NULL, int num = 0);
-int GameShutdown(void* params = NULL, int num = 0);
-HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags = DSBCAPS_CTRLDEFAULT);
-
-int GameInit(void* params, int num)
-{
-	if (DirectSoundCreate(NULL, &lpds, NULL) != DS_OK)
-		return 0;
-
-	if (lpds->SetCooperativeLevel(main_window_handle, DSSCL_PRIORITY) != DS_OK)
-		return 0;
-	DSound_Load_Wav((LPWSTR)"Windows XP Startup.wav");
-
-	lpdbsBuffer->Play(0, 0, 1);
-	return 1;
-}
+//int GameInit(void* params, int num)
+//{
+//	LPDIRECTSOUNDBUFFER lpdbsBuffer_ptr;
+//	//DSound_Load_Wav((LPWSTR)"Windows XP Startup.wav");
+//
+//	lpdbsBuffer_ptr->Play(0, 0, 1);
+//	return 1;
+//}
 //-----------------------------------------------------------
-//Ãû³Æ£ºDSound_Load_Wav
-//¹¦ÄÜ£ºÀûÓÃÎ¢ÈíÌá¹©µÄmmio¿â£¬½âÎöwavÎÄ¼þ£¬½«Êý¾Ý¶ÁÈëÄÚ´æ£¬È»ºó¿½±´µ½
-//DirectSound½¨Á¢µÄ ¸¨Öú»º³åÇø ´Ó¶øÊµÏÖÎÄ¼þµÄ²¥·Å£¨GameInit()£©
+//åç§°ï¼šDSound_Load_Wav
+//åŠŸèƒ½ï¼šåˆ©ç”¨å¾®è½¯æä¾›çš„mmioåº“ï¼Œè§£æžwavæ–‡ä»¶ï¼Œå°†æ•°æ®è¯»å…¥å†…å­˜ï¼Œç„¶åŽæ‹·è´åˆ°
+//DirectSoundå»ºç«‹çš„ è¾…åŠ©ç¼“å†²åŒº ä»Žè€Œå®žçŽ°æ–‡ä»¶çš„æ’­æ”¾ï¼ˆGameInit()ï¼‰
 //----------------------------------------------------------
 
-
-HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER* lpdbsBuffer_ptr)
+HRESULT SoundAdapter::DSound_Load_Wav(LPWSTR filename, LPDIRECTSOUNDBUFFER* lpdbsBuffer_ptr, int maxConcurrentNumber, int control_flags)
 {
 	DSBUFFERDESC    dsbd;
 	WAVEFORMATEX    wfmx;
@@ -176,7 +56,7 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 		return S_FALSE;
 
 	//--------------------------------------------
-	//½øÈë¿é(chunk),²éÕÒ riffºÍwaveµÄ±ê¼Ç
+	//è¿›å…¥å—(chunk),æŸ¥æ‰¾ riffå’Œwaveçš„æ ‡è®°
 	//----------------------------------------------
 	if (0 != mmioDescend(handle, &mmckriff, NULL, 0))
 	{
@@ -194,7 +74,7 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 	}
 
 	/////////////////////////////////////////////
-	//²éÕÒ fmt ¿é
+	//æŸ¥æ‰¾ fmt å—
 	////////////////////////////////////////////
 	mmckIn.ckid = mmioFOURCC('f', 'm', 't', ' ');
 	if (0 != mmioDescend(handle, &mmckIn, &mmckriff, MMIO_FINDCHUNK))
@@ -204,8 +84,8 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 	}
 
 	////////////////////////////////////////////////////
-	//fmt¿éµÄ¸ñÊ½ÓëPCMWAVEFORMAT µÄ¸ñÊ½¶¨ÒåÏàÍ¬
-	//ËùÒÔ¶ÁÈëÁÙÊ±±äÁ¿£¬×îºóÐ´Èë wmtfÖÐ
+	//fmtå—çš„æ ¼å¼ä¸ŽPCMWAVEFORMAT çš„æ ¼å¼å®šä¹‰ç›¸åŒ
+	//æ‰€ä»¥è¯»å…¥ä¸´æ—¶å˜é‡ï¼Œæœ€åŽå†™å…¥ wmtfä¸­
 	////////////////////////////////////////////////////
 	if (mmioRead(handle, (HPSTR)& pwfm, sizeof(PCMWAVEFORMAT)) != sizeof(PCMWAVEFORMAT))
 	{
@@ -213,7 +93,7 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 		return S_FALSE;
 	}
 	////////////////////////////////////
-	//¼ì²âÊÇ²»ÊÇ pcµÄwave±ê×¼¸ñÊ½
+	//æ£€æµ‹æ˜¯ä¸æ˜¯ pcçš„waveæ ‡å‡†æ ¼å¼
 	//
 	//////////////////////////////
 	if (pwfm.wf.wFormatTag != WAVE_FORMAT_PCM)
@@ -223,7 +103,7 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 	}
 
 	/////////////////////////////
-	//¸øwmfx¸³Öµ
+	//ç»™wmfxèµ‹å€¼
 	/////////////////////////
 	memcpy(&wfmx, &pwfm, sizeof(pwfm));
 	wfmx.cbSize = 0;
@@ -235,7 +115,7 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 	}
 
 	/////////////////////////////
-	//²éÕÒ data chunk
+	//æŸ¥æ‰¾ data chunk
 	/////////////////////////
 	mmckIn.ckid = mmioFOURCC('d', 'a', 't', 'a');
 
@@ -248,119 +128,49 @@ HRESULT DSound_Load_Wav(LPWSTR filename, int control_flags, LPDIRECTSOUNDBUFFER*
 	sndBuffer = new UCHAR[mmckIn.cksize];
 
 	/////////////////////////////
-	//Êý¾ÝÐ´ÈësndBuffer
+	//æ•°æ®å†™å…¥sndBuffer
 	/////////////////////////
 	mmioRead(handle, (HPSTR)sndBuffer, mmckIn.cksize);
 
 	mmioClose(handle, 0);
 
 	/////////////////////////////
-	//½¨Á¢directsoundµÄ¸¨Öú»º´æ
+	//å»ºç«‹directsoundçš„è¾…åŠ©ç¼“å­˜
 	//
 	/////////////////////////
+	memset((void*)&dsbd, 0, sizeof(DSBUFFERDESC));
 	dsbd.dwSize = sizeof(DSBUFFERDESC);
 	dsbd.dwBufferBytes = mmckIn.cksize;
 	dsbd.dwFlags = (control_flags | DSBCAPS_STATIC | DSBCAPS_LOCSOFTWARE);
 	dsbd.lpwfxFormat = &wfmx;
-
-	if (FAILED(lpds->CreateSoundBuffer(&dsbd, lpdbsBuffer_ptr, NULL)))
-	{
-		delete[] sndBuffer;
-		return S_FALSE;
-	}
-	VOID* pDSLockedBuffer = NULL;
-	DWORD    dwDSLockedBufferSize = 0;
-
-	////////////////////
-	//lock ×¡ÄÚ´æ£¬ÏÖÔÚËûÊÇ¿É²Ù×÷µÄ£¬¿½±´½øÈ¥¼´¿É
-	////////////////
-	if (FAILED((*lpdbsBuffer_ptr)->Lock(0, mmckIn.cksize, &pDSLockedBuffer, &dwDSLockedBufferSize, NULL, NULL, 0L)))
-		return S_FALSE;
-	memcpy(pDSLockedBuffer, sndBuffer, mmckIn.cksize);
-
-	///////////////
-	//Unlock »º³åÇøÄÚ´æ
-	//
-	////////////////
-	if (FAILED((*lpdbsBuffer_ptr)->Unlock(pDSLockedBuffer, dwDSLockedBufferSize, NULL, 0)))
-	{
-		delete[] sndBuffer;
-		return S_FALSE;
-	}
-
-	return S_OK;
-}
-int GameMain(void* params, int num)
-{
-	return 1;
-}
-INT WINAPI WinMain(HINSTANCE hinst, HINSTANCE hprev, LPSTR lCmdline, int nCmdshow)
-{
-	MSG    msg;
-	HWND hwnd;
-	WNDCLASSEX wndclass;
-
-	wndclass.cbClsExtra = 0;
-	wndclass.cbSize = sizeof(WNDCLASSEX);
-	wndclass.cbWndExtra = 0;
-	wndclass.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(0, 255, 255));
-	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-	wndclass.hInstance = hinst;
-	wndclass.lpfnWndProc = WinProc;
-	wndclass.lpszClassName = WINCLASSNAME;
-	wndclass.lpszMenuName = NULL;
-	wndclass.style = CS_DBLCLKS | CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
-
-	RegisterClassEx(&wndclass);
-
-	if (!(hwnd = CreateWindowEx(NULL, WINCLASSNAME, "DSOUND DEMO",
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		0, 0,
-		640, 480,
-		NULL,
-		NULL,
-		hinst,
-		NULL)))
-		return 0;
-
-	main_window_handle = hwnd;
-	GameInit();
-	while (TRUE)
-	{
-
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	for (int i = 0; i < maxConcurrentNumber; ++i) {
+		HRESULT hr = lpds->CreateSoundBuffer(&dsbd, lpdbsBuffer_ptr + i, NULL);
+		if (FAILED(hr))
 		{
-			if (msg.message == WM_QUIT)
-				break;
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			GameMain();
+			delete[] sndBuffer;
+			return S_FALSE;
+		}
+		VOID* pDSLockedBuffer = NULL;
+		DWORD dwDSLockedBufferSize = 0;
+
+		////////////////////
+		//lock ä½å†…å­˜ï¼ŒçŽ°åœ¨ä»–æ˜¯å¯æ“ä½œçš„ï¼Œæ‹·è´è¿›åŽ»å³å¯
+		////////////////
+		if (FAILED((*(lpdbsBuffer_ptr + i))->Lock(0, mmckIn.cksize, &pDSLockedBuffer, &dwDSLockedBufferSize, NULL, NULL, 0L)))
+			return S_FALSE;
+		memcpy(pDSLockedBuffer, sndBuffer, mmckIn.cksize);
+
+		///////////////
+		//Unlock ç¼“å†²åŒºå†…å­˜
+		//
+		////////////////
+		if (FAILED((*(lpdbsBuffer_ptr+i))->Unlock(pDSLockedBuffer, dwDSLockedBufferSize, NULL, 0)))
+		{
+			delete[] sndBuffer;
+			return S_FALSE;
 		}
 	}
-	return (int)(msg.wParam);
-}
+	
 
-LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
-{
-	PAINTSTRUCT        ps;
-	HDC                hdc;
-
-	switch (msg)
-	{
-	case WM_CREATE:
-		break;
-	case WM_PAINT:
-		hdc = BeginPaint(hwnd, &ps);
-		EndPaint(hwnd, &ps);
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		break;
-	}
-
-	return (DefWindowProc(hwnd, msg, wparam, lparam));
+	return S_OK;
 }
