@@ -205,9 +205,9 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 ### ComPtr智能指针
 在项目中使用了ComPtr智能指针以减少内存泄漏的Bug，这里简要介绍智能指针的接口方法。更多关于智能指针的详细介请参考[DirectX11--ComPtr智能指针](https://www.cnblogs.com/X-Jun/p/10189859.html)。
 >使用该智能指针需要包含头文件wrl/client.h，并且智能指针类模板ComPtr位于名称空间Microsoft::WRL内。
-
-首先有五个比较常用的方法需要了解一下：
-
+>
+>首先有五个比较常用的方法需要了解一下：
+>
 >|方法|描述|
 >|---|:---:|
 >|ComPtr::Get|该方法返回`T*`，并且不会触发引用计数加1，常用在COM组件接口的函数输入|
@@ -215,6 +215,15 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 >|ComPtr::Reset|该方法对里面的实例调用`Release`方法，并将指针置为`nullptr`|
 >|ComPtr::ReleaseAndGetAddressOf|该方法相当于先调用`Reset`方法，再调用`GetAddressOf`方法获取`T**`，常用在COM组件接口的函数输出，适用于实例可能会被反复构造的情况下|
 >|ComPtr::As|一个模板函数，可以替代IUnknown::QueryInterface的调用，需要传递一个ComPtr实例的地址|
+>
+>然后是一些运算符重载的方法：
+>
+>|运算符|描述|
+>|---|:---:|
+>|&|相当于调用了ComPtr<T>::ReleaseAndGetAddressOf方法，不推荐使用|
+>|->|和裸指针的行为一致|
+>|=|不要将裸指针指向的实例赋给它，若传递的是ComPtr的不同实例则发生交换|
+>|==和!=|可以和nullptr，或者另一个ComPtr实例进行比较|
 
 
 
