@@ -1,6 +1,7 @@
 # D2D_Project
 A 2D Game based on Direct 2D and code partly with assembly lang.
 
+\#note: This document is translated from a Chinese version by Google Translate, please [contact me](double7ys@gmail.com) if there is something difficult to understand.
 You can also access the [Readme file](https://github.com/DoubleVII/D2D_Project/blob/master/README_CN.md) wrote in Chinese.(您也可以访问用中文写的Readme文件)
 
 ## Introduce
