@@ -207,8 +207,16 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 >使用该智能指针需要包含头文件wrl/client.h，并且智能指针类模板ComPtr位于名称空间Microsoft::WRL内。
 
 首先有五个比较常用的方法需要了解一下：
+
+姓名|技能|排行
+--|:--:|--:
+刘备|哭|大哥
+关羽|打|二哥
+张飞|骂|三弟
+
+
 |方法|描述|
-|---|---:|
+|---|:---:|
 |ComPtr::Get|该方法返回T*，并且不会触发引用计数加1，常用在COM组件接口的函数输入|
 |ComPtr::GetAddressOf|该方法返回T**，常用在COM组件接口的函数输出|
 |ComPtr::Reset|该方法对里面的实例调用Release方法，并将指针置为nullptr|
