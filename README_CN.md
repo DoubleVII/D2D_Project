@@ -33,7 +33,7 @@ addGraphic(Rect);
 ![绘制的矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRectangle.PNG)
 
 
-您也可以通过StrokeRectangle绘制描边的矩形
+您也可以通过`StrokeRectangle`绘制描边的矩形
 ```cpp
 ///x=400, y=300, width=70, height=30, stroke=5
 StrokeRectangle* Rect = new StrokeRectangle(m_pCornflowerBlueBrush.Get(), 400.f, 300.f, 70.f, 30.f, 5.0f);
@@ -57,7 +57,7 @@ addGraphic(Rect);
 
 ![绘制的圆角矩形](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawRoundedRectangle.PNG)
 
-您也可以通过StrokeRoundedRectangle绘制描边的圆角矩形
+您也可以通过`StrokeRoundedRectangle`绘制描边的圆角矩形
 ```cpp
 ///x=500, y=500, width=120, height=50, stroke=3, radius=10
 StrokeRectangle* Rect = new StrokeRoundedRectangle(m_pLightSlateGrayBrush.Get(), 500.f, 500.f, 120.f, 50.f, 3.f, 10.f);
@@ -149,15 +149,15 @@ addGraphic(background);
 
 ![绘制的背景](https://github.com/DoubleVII/D2D_Project/blob/master/readme_image/drawBackground.PNG)
 
-你可能会注意到，这个背景由一个纯色底色和许多线段组成，事实上GirdBackground的内部就是使用绘制线段完成的。
+你可能会注意到，这个背景由一个纯色底色和许多线段组成，事实上`GirdBackground`的内部就是使用绘制线段完成的。
 
 ### 自定义图形
-所有的图形类都应该直接或间接继承自Drawable类，它有一个`void draw(ID2D1HwndRenderTarget* m_pRenderTarget)`方法，Direct2D的渲染目标被作为参数传入。自定义的图形类可以在该方法中通过m_pRenderTarget绘制各种图形或图像。
+所有的图形类都应该直接或间接继承自`Drawable`类，它有一个`void draw(ID2D1HwndRenderTarget* m_pRenderTarget)`方法，Direct2D的渲染目标被作为参数传入。自定义的图形类可以在该方法中通过`m_pRenderTarget`绘制各种图形或图像。
 
 ### 响应键盘和鼠标事件
-使用m_pMouse、m_MouseTracker、m_pKeyboard和m_KeyboardTracker获取鼠标和键盘的状态。
+使用`m_pMouse`、`m_MouseTracker`、`m_pKeyboard`和`m_KeyboardTracker`获取鼠标和键盘的状态。
 
-它们被声明在GameController的基类中：
+它们被声明在`GameController`的基类中：
 ```cpp
 std::unique_ptr<DirectX::Mouse> m_pMouse;
 DirectX::Mouse::ButtonStateTracker m_MouseTracker;
@@ -165,9 +165,9 @@ std::unique_ptr<DirectX::Keyboard> m_pKeyboard;
 DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 ```
 
-在程序运行时，UpdateScene方法会被不断调用，参数dt给出了距离上次调用的时间长度。您可以在UpdateScene方法中更新被加入图形队列中的图形的数据，然后它们会被绘制在屏幕上。
+在程序运行时，`UpdateScene`方法会被不断调用，参数dt给出了距离上次调用的时间长度。您可以在`UpdateScene`方法中更新被加入图形队列中的图形的数据，然后它们会被绘制在屏幕上。
 
-下面给出了一些使用m_pMouse、m_MouseTracker、m_pKeyboard和m_KeyboardTracker的方法，并实现了通过W，A，S，D键控制矩形移动的功能。
+下面给出了一些使用`m_pMouse`、`m_MouseTracker`、`m_pKeyboard`和`m_KeyboardTracker`的方法，并实现了通过W，A，S，D键控制矩形移动的功能。
 ```cpp
 // in void GameController::UpdateScene(float dt)
 // get mouse state
@@ -200,10 +200,10 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 ```
 
 ## 编程
-为了编写您的游戏，您只需要关注GameControll和框架自带的图形类即可（或者您可以自己实现图形类）。
+为了编写您的游戏，您只需要关注`GameControll`和框架自带的图形类即可（或者您可以自己实现图形类）。
 
-### ComPtr智能指针
-在项目中使用了ComPtr智能指针以减少内存泄漏的Bug，这里简要介绍智能指针的接口方法。更多关于智能指针的详细介请参考[DirectX11--ComPtr智能指针](https://www.cnblogs.com/X-Jun/p/10189859.html)。
+### `ComPtr`智能指针
+在项目中使用了`ComPtr`智能指针以减少内存泄漏的Bug，这里简要介绍智能指针的接口方法。更多关于智能指针的详细介请参考[DirectX11--ComPtr智能指针](https://www.cnblogs.com/X-Jun/p/10189859.html)。
 >使用该智能指针需要包含头文件wrl/client.h，并且智能指针类模板ComPtr位于名称空间Microsoft::WRL内。
 >
 >首先有五个比较常用的方法需要了解一下：
@@ -220,29 +220,29 @@ DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 >
 >|运算符|描述|
 >|---|:---:|
->|&|相当于调用了ComPtr<T>::ReleaseAndGetAddressOf方法，不推荐使用|
+>|&|相当于调用了`ComPtr<T>::ReleaseAndGetAddressOf`方法，不推荐使用|
 >|->|和裸指针的行为一致|
->|=|不要将裸指针指向的实例赋给它，若传递的是ComPtr的不同实例则发生交换|
->|==和!=|可以和nullptr，或者另一个ComPtr实例进行比较|
+>|=|不要将裸指针指向的实例赋给它，若传递的是`ComPtr`的不同实例则发生交换|
+>|==和!=|可以和`nullptr`，或者另一个`ComPtr`实例进行比较|
 
 
 
-### GameControll的接口
+### `GameControll`的接口
 
-在GameController类中，有两个方法需要特别关注，`void GameController::GameInit()
+在`GameController`类中，有两个方法需要特别关注，`void GameController::GameInit()
 `和`void GameController::UpdateScene(float dt)`。
 
-简单来讲，您需要在GameInit中初始化您的游戏，在UpdateScene中完成所有的数据更新，同时您的游戏主要逻辑也在UpdateScene中执行。
+简单来讲，您需要在`GameInit`中初始化您的游戏，在`UpdateScene`中完成所有的数据更新，同时您的游戏主要逻辑也在`UpdateScene`中执行。
 
-#### void addGraphic(Drawable* g)
+#### `void addGraphic(Drawable* g)`
 向图形队列尾部添加一个图形。图形队列中的所有图形会被绘制在屏幕上。
 
 需要注意的是，添加图形的顺序对最终的绘制效果有影响，即最先添加到图形队列中的图形会位于画面最底层。因此我们推荐您将背景放在图形队列的第一个位置，否则它会挡住所有在它前面添加的图形。
 
-#### void addGraphicToFront(Drawable* g)
+#### `void addGraphicToFront(Drawable* g)`
 向图形队列头部添加一个图形。
 
-#### void removeGraphic(Drawable* g)
+#### `void removeGraphic(Drawable* g)`
 从图形队列中移除一个图形，被移除的图形将不再被绘制。
 
 另外，如果需要更加精细的插入或删除操作，您可以直接使用保存图形队列的变量`std::list<Drawable*> graphics`。
