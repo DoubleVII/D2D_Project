@@ -8,12 +8,14 @@ public:
 	virtual ~GameText();
 	void draw(ID2D1HwndRenderTarget* m_pRenderTarget);
 
-	void setText(const wchar_t* text) {
+	void setText(const wchar_t* text, UINT32 length) {
 		this->text = text;
+		this->length = length;
 	}
 
-	LPCTSTR getText() {
-		return text;
+	UINT32 getText(const wchar_t** textptr) {
+		(*textptr) = text;
+		return length;
 	}
 
 protected:
