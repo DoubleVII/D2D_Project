@@ -177,9 +177,39 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\category.png" />
+    <Image Include="resources\endGame.png" />
+    <Image Include="resources\head.jpg" />
+    <Image Include="resources\room.png" />
+    <Image Include="resources\箭头1_左1.png" />
+    <Image Include="resources\箭头1_左2.png" />
+    <Image Include="resources\箭头1_左3.png" />
+    <Image Include="resources\箭头1_左4.png" />
+    <Image Include="resources\箭头1_左5.png" />
+    <Image Include="resources\箭头上1.png" />
+    <Image Include="resources\箭头上2.png" />
+    <Image Include="resources\箭头上3.png" />
+    <Image Include="resources\箭头上4.png" />
+    <Image Include="resources\箭头上5.png" />
+    <Image Include="resources\箭头上位置.png" />
+    <Image Include="resources\箭头下1.png" />
+    <Image Include="resources\箭头下2.png" />
+    <Image Include="resources\箭头下3.png" />
+    <Image Include="resources\箭头下4.png" />
+    <Image Include="resources\箭头下5.png" />
+    <Image Include="resources\箭头下位置.png" />
+    <Image Include="resources\箭头右1.png" />
+    <Image Include="resources\箭头右2.png" />
+    <Image Include="resources\箭头右3.png" />
+    <Image Include="resources\箭头右4.png" />
+    <Image Include="resources\箭头右5.png" />
+    <Image Include="resources\箭头右位置.png" />
+    <Image Include="resources\箭头左位置.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirextX2DDemo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\M11-07-27.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
