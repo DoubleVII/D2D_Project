@@ -97,6 +97,7 @@ void GameController::GameInit()
 
 	soundAdapter.createSound((LPWSTR)L"resources/M11-07-27.wav", &sound, 10);
 	sound->play();
+	sound->stop();
 }
 
 

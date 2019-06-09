@@ -20,6 +20,11 @@ GameSound::~GameSound()
 
 void GameSound::play()
 {
-	pointer = (pointer + 1) % size;
 	sounds[pointer]->Play(0,0,0);
+	pointer = (pointer + 1) % size;
+}
+
+void GameSound::stop()
+{
+	sounds[(pointer - 1 + size) % size]->Stop();
 }
